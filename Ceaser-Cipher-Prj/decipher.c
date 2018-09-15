@@ -39,14 +39,19 @@ void calcFreq(float found[], FILE* datafile){
     }
 }
 
-    // char rotate(char ch, int num){
+// char rotate(char ch, int num){
 
-    // }
+// }
 
-    // int findKey(float given[], float found[]){
-
-    // }
-
-    void decrypt(int key, FILE* datafile, FILE* outfile){
-
+int findKey(float given[], float found[]){
+    float offest_sums[26];
+    for(int offset = 0; offset < NUM_LETTERS; ++offset){
+        for(int index = 0; index < NUM_LETTERS){
+            
+        }
     }
+}
+
+void decrypt(int key, FILE* datafile, FILE* outfile){
+
+}
