@@ -8,7 +8,7 @@ void readFreq(float found[], FILE* letFreq){
     fgetc(letFreq);
     for(int index = 0; index < NUM_LETTERS; ++index){
         printf("here2");
-        fscanf(letFreq,"%f", found[index]);
+        fscanf(letFreq,"%f", &found[index]);
         for(int j = 0; j < 2; ++j){
             fgetc(letFreq);
         }
