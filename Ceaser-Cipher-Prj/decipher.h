@@ -2,6 +2,8 @@
 #define DECIPHER_H 
 #include <stdio.h>
 
+#define NUM_LETTERS 26
+
 /**********************************************************************
  * Takes the spcified file and reads out all of the frequency values
  * of the normal alphebet. It then takes those values and copies them
