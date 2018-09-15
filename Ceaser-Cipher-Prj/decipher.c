@@ -10,7 +10,6 @@ void readFreq(float found[], FILE* letFreq){
     fgetc(letFreq);
 
     for(int index = 0; index < NUM_LETTERS; ++index){
-        printf("here2");
         fscanf(letFreq,"%f", &found[index]);
         for(int j = 0; j < 2; ++j){
             fgetc(letFreq);
@@ -20,12 +19,25 @@ void readFreq(float found[], FILE* letFreq){
 
 void calcFreq(float found[], FILE* datafile){
     char observed;
-
+    int letter_freq[26] = {0};    
+    int index, total_letters = 0;
     while(observed = fgetc(datafile), observed != EOF){
         if(isupper(observed)){
-            
+            index = (int) observed - 'A';
+            ++total_letters;
         }
+        else if(islower(observed)){
+            index = (int) observed - 'a';
+            ++total_letters;
+        }
+        ++letter_freq[index];
     }    
+
+    //Calculate the letter frequencies
+    for(index = 0; index < NUM_LETTERS; ++index){
+        found[index] = (float) letter_freq[index] / total_letters;
+    }
+}
 
     // char rotate(char ch, int num){
 
