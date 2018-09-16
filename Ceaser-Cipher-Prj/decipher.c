@@ -21,6 +21,7 @@ void calcFreq(float found[], FILE* datafile){
     char observed;
     int letter_freq[26] = {0};    
     int index, total_letters = 0;
+
     while(observed = fgetc(datafile), observed != EOF){
         if(isupper(observed)){
             index = (int) observed - 'A';
@@ -39,19 +40,34 @@ void calcFreq(float found[], FILE* datafile){
     }
 }
 
-// char rotate(char ch, int num){
-
-// }
-
 int findKey(float given[], float found[]){
     float offest_sums[26];
+    float square_sums = 0.0;
+    int best_offset = 0;
     for(int offset = 0; offset < NUM_LETTERS; ++offset){
         for(int index = 0; index < NUM_LETTERS){
-            
+
         }
     }
+    return best_offset;
 }
 
 void decrypt(int key, FILE* datafile, FILE* outfile){
 
 }
+
+char rotate(char ch, int num){
+    char final;
+    if(isupper(ch)){
+        final = (ch - 'A' + (NUM_LETTERS - num)) % NUM_LETTERS + 'A';
+    }
+    else if(islower()){
+        final = (ch - 'a' + (NUM_LETTERS - num)) % NUM_LETTERS + 'a';   
+    }
+    else{
+        final = ch;
+    }
+    
+    return final;
+}
+
