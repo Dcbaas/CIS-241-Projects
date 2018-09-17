@@ -5,7 +5,7 @@
 int main(int argc, char** argv){
     FILE* frequency_values = fopen("letFreq.txt", "r");
     FILE* cipher_text = fopen(argv[1], "r");
-
+    FILE* output_file;
     if(frequency_values == NULL){
         fprintf(stderr, "ERROR LOADING FREQUENCY VALUES\n\n");
         return ENOENT;
@@ -22,9 +22,16 @@ int main(int argc, char** argv){
 
     calcFreq(observed_freq, cipher_text);
     int best_key = findKey(default_freq, observed_freq);
-    printf("%d\n", best_key);
-    fclose(cipher_text);
 
-    
+    output_file = fopen(argv[2], "w");
+    if(!output_file){
+        fprintf(stderr, "ERROR CREATING OUTPUT FILE");
+        return EIO;
+    }
+
+    decrypt(best_key, cipher_text, output_file);
+
+    fclose(cipher_text);
+    fclose(output_file);
     return 0;
 }

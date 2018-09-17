@@ -62,7 +62,12 @@ int findKey(float given[], float found[]){
 }
 
 void decrypt(int key, FILE* datafile, FILE* outfile){
-
+    rewind(datafile); 
+    char ch;
+    
+    while(ch = fgetc(datafile), ch != EOF){
+        fputc(rotate(ch, key), outfile); 
+    }
 }
 
 char rotate(char ch, int num){
