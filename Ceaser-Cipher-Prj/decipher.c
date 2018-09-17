@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <math.h>
 #include "decipher.h"
 
 void readFreq(float found[], FILE* letFreq){
@@ -41,12 +42,20 @@ void calcFreq(float found[], FILE* datafile){
 }
 
 int findKey(float given[], float found[]){
-    float offest_sums[26];
-    float square_sums = 0.0;
+    float offset_sums[26];
     int best_offset = 0;
-    for(int offset = 0; offset < NUM_LETTERS; ++offset){
-        for(int index = 0; index < NUM_LETTERS){
 
+    for(int offset = 0; offset < NUM_LETTERS; ++offset){
+        for(int index = 0; index < NUM_LETTERS; ++index){
+           offset_sums[offset] += pow(found[(index + offset) % NUM_LETTERS] - given[index], 2);
+        }
+    }
+
+    //Do an analysis of all the offset calculations to find the lowest square.
+    //The lowest square will most likly be the key to decyrpt the cipher text.
+    for(int index = 0; index < NUM_LETTERS; ++index){
+        if(offset_sums[index] < offset_sums[best_offset]){
+            best_offset = index;
         }
     }
     return best_offset;
@@ -61,7 +70,7 @@ char rotate(char ch, int num){
     if(isupper(ch)){
         final = (ch - 'A' + (NUM_LETTERS - num)) % NUM_LETTERS + 'A';
     }
-    else if(islower()){
+    else if(islower(ch)){
         final = (ch - 'a' + (NUM_LETTERS - num)) % NUM_LETTERS + 'a';   
     }
     else{
