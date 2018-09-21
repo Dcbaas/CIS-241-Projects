@@ -5,6 +5,14 @@
 #define NUM_LETTERS 26
 
 /**********************************************************************
+ * decipher.h defines the series of functions to decipher a text file
+ * with cipher text.
+ * 
+ * Authoer: David Baas
+ * Version: 1.0 - 9/16/2810
+ *********************************************************************/
+
+/**********************************************************************
  * Takes the spcified file and reads out all of the frequency values
  * of the normal alphebet. It then takes those values and copies them
  * into the found array. The file is expected to be the file with 
