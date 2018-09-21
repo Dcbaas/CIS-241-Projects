@@ -2,19 +2,76 @@
 #include <errno.h>
 #include "decipher.h"
 
+/**********************************************************************
+ * The main method tracks all of the files being used and calls all
+ * of the functions to deycrpt the cipher text. After decryption, 
+ * The plain text is saved in the output file. 
+ * 
+ * Author: David Baas
+ * Version: 1.0 - 9/16/2018
+ * 
+ * COMMAND LINE ARGUMENTS:
+ * Param: {arg[1]} input_file The file contining the cipher text.
+ * Param: {arg[2]} output_file The file where the plain text is going 
+ * to be written to.
+ * 
+ * Returns: 0 on successful run, EIO on issues with either reading
+ * the input file or writing the output file, EPERM if the number of 
+ * arguments is not exactly 3
+ *********************************************************************/
 int main(int argc, char** argv){
-    printf("here -1");
-    FILE* frequency_values = fopen("letFreq.txt", "r");
-
-    if(frequency_values == NULL){
-        printf("ERROR LOADING FILE");
-        return ENOENT;
+    //Validate the number of arguments.
+    if(argc != 3){
+        fprintf(stderr, "INVALID NUMBER OF PARAMETERS\n");
+        fprintf(stderr, "USAGE: ./a.out input_file output_file\n");
+        return EPERM;
     }
-    printf("here0");
-    float default_freq[26];
+
+    //Define all the files and open two of them.
+    FILE* frequency_values = fopen("letFreq.txt", "r");
+    FILE* cipher_text = fopen(argv[1], "r");
+    FILE* output_file;
+
+    //Check that both frequency and cipher text opened correctly.
+    if(frequency_values == NULL){
+        fprintf(stderr, "ERROR LOADING FREQUENCY VALUES\n\n");
+        return EIO;
+    }
+    else if(!cipher_text){
+        fprintf(stderr, "ERROR LOADING CIPHER TEXT\n\n");
+        return EIO;
+    }
+
+    //Define two arrays for given and observed letter frequencies.
+    float default_freq[NUM_LETTERS];
+    float observed_freq[NUM_LETTERS];
+
+    //Read in the given frequencies and close the frequency file.
     readFreq(default_freq, frequency_values);
-
-
     fclose(frequency_values);
-    return 1;
+
+    //Calculate the frequency for the cipher text and find the best
+    //offset.
+    calcFreq(observed_freq, cipher_text);
+    int best_key = findKey(default_freq, observed_freq);
+
+    //Open the output file now and validate it was opened correctly.
+    //I do this later from the others because my perceiption is that
+    //the less time I have a file open the better. File I/O is 
+    //very tempermental I think.
+    output_file = fopen(argv[2], "w");
+    if(!output_file){
+        fprintf(stderr, "ERROR CREATING OUTPUT FILE");
+        return EIO;
+    }
+
+    //Decrypt the cipher text and write it to the output file.
+    decrypt(best_key, cipher_text, output_file);
+
+    //Close all of the remaining open files.
+    fclose(cipher_text);
+    fclose(output_file);
+
+    //Success.
+    return 0;
 }
