@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 #include <time.h>
 
 
@@ -38,8 +39,9 @@ int main ()
     if(dynamic_array == NULL){
         fprintf(stderr, "ERROR WITH MEMORY ALLOCATION");
         //In errno.h 12 is macroed to out of memory
-        return 12;
+        return ENOMEM;
     }
+
     //In CIS 350, we were told to never call variables single characters.
     int* address;
     int* address2;
@@ -49,11 +51,11 @@ int main ()
         *address = i;
     }
     
-    for(address = dynamic_array; address < dynamic_array + (MaxSize -1); ++address){
+    for(address = dynamic_array; address < dynamic_array + (MaxSize - 1); ++address){
         for(address2 = dynamic_array + (MaxSize - 1); address2 > address; --address2){
             if(*(address2-1) > *address2){
-                temp = *(address2 - 1);
-                *(address2 -1) = *address2;
+                temp = *(address2-1);
+                *(address2-1) = *address2;
                 *address2 = temp;
             }
         }
