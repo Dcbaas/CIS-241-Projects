@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s1[10] s2[10];
+    printf("enter a string");
+    scanf("%s", s1);
+    strncpy(s2.s1,5);
+    s2[5] = '\0';
+    printf("%s",s2);
+    return 0;
+}
+
+
+//////////////////////////////////////////////////////
+//How would a getlen function look 
+
+int getlen(char s[]){
+    int i; 
+    for(i = 0; s[i] != \0; ++i);
+}
+
+it could also be for(i = 0; s[i]; ++i); because null is a false value and just putting s[i] returns a non zero value
+
+int strcmp(char* p char* q){
+    while(*p == *q){
+        if(*p == '\0\)
+            break;
+        p++;
+        q++;
+    }
+    return *p - *q; //if these are the same char then this returns zero but if they aren't they return a char different from 0
+}
+
+
+/////////////////////////////////////
+
+For strcpy
+
+
+char* strcpy(char* p, char* q){
+    int i;
+    for(i = 0; q[i] != '\0'; i++)
+        p[i] = q[i];
+    //add the nulls to the end
+    p[i] = q[i];
+    return p;
+}
