@@ -26,6 +26,7 @@ void readFreq(float found[], FILE* letFreq){
     fgetc(letFreq);
     fgetc(letFreq);
 
+    //read all of the values and throw away the letters for each line.
     for(int index = 0; index < NUM_LETTERS; ++index){
         fscanf(letFreq,"%f", &found[index]);
         for(int j = 0; j < 2; ++j){
@@ -43,7 +44,11 @@ void readFreq(float found[], FILE* letFreq){
  * Param: datafile: The file with the cipher text being deciphered.
  *********************************************************************/
 void calcFreq(float found[], FILE* datafile){
+    //A value to observe each char in the txt file.
     char observed;
+
+    //An integer array to track letter frequencies. 
+    //The found[] array isn't used for this function because floating points might become inaccurate 
     int letter_freq[26] = {0};    
     int index, total_letters = 0;
 
@@ -56,6 +61,8 @@ void calcFreq(float found[], FILE* datafile){
             index = (int) observed - 'a';
             ++total_letters;
         }
+        //todo: this needs to not tigger if the char isn't a letter of any kind.
+        //Could lead to bad result.
         ++letter_freq[index];
     }    
 
