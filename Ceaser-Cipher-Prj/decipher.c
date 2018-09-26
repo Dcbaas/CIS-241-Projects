@@ -56,14 +56,13 @@ void calcFreq(float found[], FILE* datafile){
         if(isupper(observed)){
             index = (int) observed - 'A';
             ++total_letters;
+            ++letter_freq[index];
         }
         else if(islower(observed)){
             index = (int) observed - 'a';
             ++total_letters;
+            ++letter_freq[index];
         }
-        //todo: this needs to not tigger if the char isn't a letter of any kind.
-        //Could lead to bad result.
-        ++letter_freq[index];
     }    
 
     //Calculate the letter frequencies
@@ -85,9 +84,10 @@ int findKey(float given[], float found[]){
     float offset_sums[26];
     int best_offset = 0;
 
+    //Calcuating all of the offsets.
     for(int offset = 0; offset < NUM_LETTERS; ++offset){
         for(int index = 0; index < NUM_LETTERS; ++index){
-           offset_sums[offset] += pow(found[(index + offset) % NUM_LETTERS] - given[index], 2);
+            offset_sums[offset] += pow(found[(index + offset) % NUM_LETTERS] - given[index], 2);
         }
     }
 
@@ -117,7 +117,7 @@ int findKey(float given[], float found[]){
 void decrypt(int key, FILE* datafile, FILE* outfile){
     rewind(datafile); 
     char ch;
-    
+
     while(ch = fgetc(datafile), ch != EOF){
         fputc(rotate(ch, key), outfile); 
     }
@@ -143,7 +143,7 @@ char rotate(char ch, int num){
     else{
         final = ch;
     }
-    
+
     return final;
 }
 
