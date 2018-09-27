@@ -1,0 +1,33 @@
+gdb
+
+The best debugger ever. All command line based. 
+
+COMMANDS:
+add the flag -g to use the debugger for the executable.!!!!!
+
+to start gdb type 
+"gdb program name"
+
+break "line number"
+step = step through the sequence once 
+run starts the program 
+
+You can change scope with up and down. 
+help will give you a list of commands
+
+//////////////////////////////////////////////////////////////////
+Code for double pointer
+
+void main(){
+    int x = 10;
+    int* p; 
+    int** q; 
+
+    p = &x;
+    q = &p;
+    printf("%d%d%d", x, *p, **q);
+
+    return 0;
+}
+
+Double pointers are commonly used the situations can be avoided but a lot of people use them.
