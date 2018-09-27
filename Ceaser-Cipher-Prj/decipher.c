@@ -52,6 +52,7 @@ void calcFreq(float found[], FILE* datafile){
     int letter_freq[26] = {0};    
     int index, total_letters = 0;
 
+    //Parse the file for letters and increase their frequency if found.
     while(observed = fgetc(datafile), observed != EOF){
         if(isupper(observed)){
             index = (int) observed - 'A';

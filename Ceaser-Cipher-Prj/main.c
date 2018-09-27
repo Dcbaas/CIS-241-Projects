@@ -5,7 +5,12 @@
 /**********************************************************************
  * The main method tracks all of the files being used and calls all
  * of the functions to deycrpt the cipher text. After decryption, 
- * The plain text is saved in the output file. 
+ * The plain text is saved in the output file. For all data structures
+ * used in this assignment I used static arrays. This decsion was 
+ * taken because All the arrays used all needed only 26 elements 
+ * and in every use case the entire array was filled. With that in 
+ * mind, it was more pruident to use the safer static array rather
+ * than deal with possible memory problems of dynamic arrays.
  * 
  * Author: David Baas
  * Version: 1.0 - 9/16/2018
