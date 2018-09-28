@@ -116,7 +116,12 @@ int findKey(float given[], float found[]){
  * to it.
  *********************************************************************/
 void decrypt(int key, FILE* datafile, FILE* outfile){
+    //The data file is a pointer to a location inside of the file opened
+    //The pointer needs to be set back to the beginning to read the file
+    //again.
     rewind(datafile); 
+
+    //Need ch to read the cipher text
     char ch;
 
     while(ch = fgetc(datafile), ch != EOF){

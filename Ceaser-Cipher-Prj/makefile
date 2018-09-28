@@ -3,7 +3,7 @@ cipher: cipher.o
 cipher.o: cipher.c
 
 decipher:
-	clang decipher.c main.c -o decipher
+	clang decipher.c main.c -o decipher -lm
 
 test: test1 test2 
 test1: 
@@ -28,3 +28,11 @@ long:
 	./cipher 1 22 long.txt long.out
 	./decipher long.out long.bak
 	diff long.txt long.bak
+
+clean:
+	rm cipher decipher
+clear:
+	rm tooshort.out tooshort.bak
+	rm short.out short.bak
+	rm obscure.out obscure.bak
+	rm long.out long.bak
