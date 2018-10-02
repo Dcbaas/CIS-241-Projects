@@ -11,28 +11,3 @@ test1:
 test2:
 	./cipher 2 5 data.out data.bak
 
-mytest: tooshort short obscure long
-tooshort:
-	./cipher 1 13 tooshort.txt tooshort.out
-	./decipher tooshort.out tooshort.bak
-	diff tooshort.txt tooshort.bak
-short:
-	./cipher 1 4 short.txt short.out
-	./decipher short.out short.bak
-	diff short.txt short.bak
-obscure:
-	./cipher 1 19 obscure.txt obscure.out
-	./decipher obscure.out obscure.bak
-	diff obscure.txt obscure.bak
-long:
-	./cipher 1 22 long.txt long.out
-	./decipher long.out long.bak
-	diff long.txt long.bak
-
-clean:
-	rm cipher decipher
-clear:
-	rm tooshort.out tooshort.bak
-	rm short.out short.bak
-	rm obscure.out obscure.bak
-	rm long.out long.bak
