@@ -1,0 +1,329 @@
+This was the final report for my project in CIS 350 It is well over 10 pages long. It is used for the long file test
+
+Class Project: Monopoly Project
+David Baas, Dylan Kernohan, Santiago Quiroga
+CIS 350-01: Winter 2018
+________________
+
+
+Table of Contents
+
+
+Project Information        4
+Features        4
+Screenshots        5
+Project Plan        9
+Requirements & Definition        9
+Development        9
+Verification        9
+Maintenance        9
+Umbrella Activities        10
+Responsibilities        10
+Requirements & Specification        11
+High Level Requirements        11
+Use-Cases        11
+Design        12
+Development        13
+Code Standards        13
+Static Analysis        13
+Code Documentation        13
+Configuration Management        13
+Verification        14
+Integration Tests        14
+Unit Tests        14
+Code Coverage        14
+Requirements Coverage        14
+Postmortem        15
+Earned Value        15
+Variances        15
+Lessons Learned        16
+
+
+________________
+
+
+Project Information
+
+
+The objective of this project was to create a version of Monopoly as a desktop application. The application was created in Java and followed the Model View Controller paradium. It contains all of the basic functionality of the game of Monopoly. 
+
+
+Features
+
+
+Project Features for this release include
+* Basic functionality of the base board game Monopoly which includes
+   * Movement of individual players across a board.
+   * The purchase of property from the bank.
+   * The taxing of players when they land on various board spaces
+   * The use of Chance and Community Chest cards when landing on the appropriate board space
+   * Jailing the player when certain actions occur
+   * Rolling dice
+   * Card drawing
+   * Player inventory
+* The use of a top down GUI which allows for:
+   * Visual identification of players and their position using tokens
+   * Identification of what property was landed on using a fully visual game board. 
+   * Identification of what players has in terms of wealth, and what properties they own using a player info display.
+   * Interaction with the game using various buttons and getting detailed information from a text information display.
+   * The creation of a new game and the quitting of a game using a menu bar.
+   * The ability to toggle the game into testing mode which disables the randomness of dice rolls.
+
+
+
+
+
+
+
+
+
+
+  
+
+Initial App window on startup.
+
+
+  
+
+App window with tokens added and moved.
+  
+
+Board with one house.
+
+
+  
+
+Board with multiple houses.
+
+
+  
+
+Board with houses and hotel.
+
+
+  
+
+Prompt after clicking Build House or Build Hotel
+
+
+  
+
+Dice value prompt for testing mode.
+  
+  
+
+Left: Button panel and Text panel.                       Right: Player detail panel
+
+
+
+
+
+
+________________
+
+
+Project Plan
+
+
+The software process selected for this project was AGILE; specifically the scrum framework. The general plan was to create a series of week long sprints where a specific aspect of the application were developed(eg the Model was developed in one sprint). 
+
+
+Requirements & Definition
+
+
+The requirements for the application were found and defined in the rulebook for the board game Monopoly. The rulebook was dissected for features and functions that the application had to fulfil. Additionally, each group member talked about their experiences playing Monopoly and potential features were defined based off of those testimonies. 
+
+
+Development
+
+
+Being that a Scrum framework was being used as the software process model, development was performed with sprints. Each sprint was one week long. For each sprint, an aspect of the application was focused on for the week and GitHub issues were created and tied to that specific sprint with each issued of the sprint having to be completed before the aspect of the application could be considered finished. 
+
+
+Verification
+
+
+Verification of features that had been developed was verified using Unit test for individual classes and manual play testing to test the view , controller, and the game in as a whole cohesive unit.
+
+
+Maintenance
+
+
+For managing the project we used git for version control on individual files and we used GitHub as a host for our files. GitHub was also used to control what functionality needed to be worked on for a specific sprint. Each individual (with the exception of David who owned and used the master repository) had their own forked repository where they worked on their issues. Initially, when a person’s code was ready to be merged, a pull request submitted to the master branch and each individual had to review the code being submitted and approved it. The code was merged to the master branch once the changes were approved. 
+
+
+Later on, the version control was changed and an new system of branches was created called “Develop. The management was reorganized so that all development code was merged to develop. When a release was coming up a new release branch for the release was created and the release files were collected there and eventually pushed to master as the release code the public would use. In addition, a more efficient approach was used where people were given time to look at the code and following an amount of time, the pull request was merged regardless of if everyone had reviewed it. When bugs appeared, they were documented as a Github issue and then fixed when time was available.
+Umbrella Activities
+
+
+Weekly meetings were scheduled for Mondays from 11AM - 12PM where we talked about what work was to be done for that week’s sprint as well as creating issues for that sprint. If another meeting was needed to discuss technical aspects of the work being done, another meeting was arranged as time allowed. The creation of documentation was set to be done and was performed during the week before the first release was due. The documentation for the second release was generated in the same time frame; the week before it was due.
+
+
+Responsibilities
+
+
+For each sprint, a selection of team members of the group were assigned to work on the sprint. Each person assigned to the sprint was responsible for completing a portion of the issues in that sprint until the all of the issues of the sprint were finished.
+________________
+
+
+
+
+Requirements & Specification
+
+
+Requirements were elicited from the ruleset from the standard game of Monopoly as well as from the personal experiences of group members who had played Monopoly at sometime in their life. These requirements gathered from the ruleset and the group members were then tied to a series of use cases.
+ 
+High Level Requirements
+
+
+The requirements for this application were that the this application has to enable a user to play the game of Monopoly on a computer. It had to be able to play a game of monopoly using the standard ruleset of Monopoly dictated in the standard Monopoly rulebook. The application had to provide a GUI that provided a view of the board to allow for easy game state assessment by the users. Additionally the GUI had to have intuitive controls to allow the user to make decisions quickly and effectively. The application had to strictly follow the Model View Controller paradigm. Additional requirements came from our group members. One of the requirements was to allow for custom house rules to be enabled for individual games of Monopoly as many of the group members have always played Monopoly with custom house rules that differed from the standard ruleset in some way or the other. Finally the group set up some long term goals for the project such as artificial intelligence and networking for if the group got finished with all its primary goals. 
+
+
+As the project progressed the long term goals as well as the goals of allowing house rules became less feasible therefore in the end the final requirements were the original minimum requirement that the application had to be able to facilitate play of the base game of monopoly with 2-4 players. There was one feature that was scrapped from the base game due to the functions complexity and time constraints  and that was the auction feature. 
+
+
+
+
+Use-Cases
+
+
+Submitted with this document is a Use Case Diagram PDF. 
+
+
+________________
+
+
+Design
+
+
+We started the design phase by drawing up a simple, barebone class diagram for the model. This very first diagram was very helpful for the entire team to visualize all the different objects, and the rough relationship between them. Although, it was not a true standard class diagram. It was a quick and easy way to get thoughts flowing and the whole team working together.
+
+
+  
+
+For the formal UML diagram, IntelliJ has an built in UML diagram generator. That tool was used to create the formal UML diagram. The diagram is attached to this project submission. 
+
+
+
+
+________________
+
+
+Development
+
+
+The primary development environment being a Java application was IntelliJ. The code standards selected originally were the GVSU Java Style Guide used for the classes CIS 162 and CIS 163. This format was confirmed by using Checkstyle. Static analysis was performed using FindBugs for IntelliJ and documentation was generated using JavaDocs. 
+
+
+Later on, it was decided to switch over to Google Style guide for ease of use with CheckStyle.
+
+
+Code Standards
+
+
+There is a CheckStyle report in the deliverables. There are overall a total of 72 out of compliance items in the code. Of the 72 items the vast majority of them are flags saying that the names for all of the codes constants does not comply with Google’s standard conventions for naming constants. There are a few errors where Google thinks a constant is needed where its not and there is one paragraph error. None of those errors are of concern to the group because the constants names were made using GV Style guide and changing the names would take too much time. 
+
+
+Static Analysis
+
+
+The FindBugs report is located as an html page in the deliverables folder. Overall there are only 11 errors that static analysis could find. All of the errors are related to classes that weren’t even written in this project. These errors were not found to be important to the function of the project and more importantly fixing the errors would mean going into code written by Oracle and fixing it.
+
+
+Code Documentation
+
+
+The JavaDocs are stored in a folder in the deliverables.
+Configuration Management
+
+
+Here is the link to the GitHub Repository .The branch to look called “Release 2”
+The git log is called Git.log and is its own folder.
+
+
+As we worked, we created a new branch for every issue we created in the scrum board. These feature branches  were then pulled back into master. For the release, we simply created a new branch off master called Release 1. This way we knew exactly where we had the working set of code up to a certain point. This also allowed us to continue working on master and making changes for release 2 before actually demoing release 1. For development after release 1, the organization of the repository was changed to be three primary branches. A Development branch where all of the development code was committed and held until the next release cycle, a Release Branch where the release version files were compiled together and where bugs were tested for and fixed, and finally the master was the branch the public had access to for downloading and using the application.
+
+
+
+
+Verification
+
+
+For unit testing, we used the JUnit testing framework. We generally wrote the test right after writing the logic. We wrote unit tests for every function of every class of the Model. For the controller and view, manual testing was used to ensure that all features of the view and controller worked properly. This decision was taken because it was felt it was a better representation of the view and controller to test them as a cohesive unit as opposed to separately. 
+Integration Tests
+
+
+There is one file called “MANUAL TEST” which contains all of the manual testing for the view and controller.
+Unit Tests
+
+
+There is a folder in the repository label Test.  All of the classes of the Model have been unit tested except for some of the classes that don’t have functionality or are partially tested because the remaining methods are either getters and setters or have fringe cases that are difficult to generate unit test code for.
+
+
+Code Coverage
+
+
+The code coverage report is an html bundle that can be found in the deliverables in the Coverage Folder under release 2. Overall with the Unit Test and Manual Integration Test, the coverage is quite good. The model is covered with 90% coverage across all the model packages. The coverage of the GameController class is okay with 71% coverage but in the controller package, the TextController doesn’t get used and skews the results of the package coverage. The view has high coverage for everything except the TextView which isn’t used. 
+
+
+As explained earlier the remaining code that isn’t covered is generally the same as was described in the unit test section. It’s either getters and setters that weren’t used or were methods with difficult to reach conditionals. 
+
+
+Requirements Coverage
+
+
+There is a traceability matrix attached with this submission. 
+________________
+
+
+Postmortem
+
+
+While the project started out rough, the overall feeling among the group is that the project went really well. The objective of the project was to learn about the development process in software engineering. The group really made it a point to go through all of the bureaucracy of the development process correctly and generate administrative documentation as the code was developed. We used git as if we were a business with all the functionality that entails. While we as a group wish that our final product was further along and had more features, we still feel like we really learned about the software engineering development and will take the lessons learned from the process to heart. 
+
+
+Earned Value 
+
+
+Our overall Earned Value Analysis for this project is behind where we wanted to end up from the outset of the project. The reason for this was because of how far back release 1 set us.
+
+
+Following release 1, the group reevaluated what it wanted done for release 2 specifically. It was decided to scrap all of the extra features we had wanted originally in favor of having a functioning GUI with the base game. That being said, our earned value for release 2 was right on track for what we set out to accomplish minus a few features.
+
+
+The final status of the project is that we didn’t finish all of the features we set out to have in the final product and as a result, we fell behind. Instead of having features such as the base game with a GUI plus house rules and some of the long term features such as Artificial Intelligence, our final product has just the base game in a GUI with some functions of the game left out.. 
+
+
+
+
+Variances
+
+
+
+
+The final release was supposed to have the base game with a functional GUI plus the ability to use house rules while playing the game of Monopoly. There were other long term features as well such as Artificial Intelligence and Networking that while we didn’t expect to get both of them we had hoped to include one of them. Instead, the final product released has only the base game minus the functionality of auctioning, selling in general, and bankruptcy. 
+
+
+For all three reasons there was the issue of time that made it not possible to implement all of these functions. For auction time made it so that we as a group couldn’t get to the issue and for selling in general and bankruptcy, the features were implemented in the model but not in the GUI. This combined with the release 1 issued made implementing all of these features not possible. While the point is gone over in more detail in the Lessons Learned section, the basic summary of what we would have done differently is that we would have changed how we organized development of the project from the start to make it possible to get to these features. 
+
+
+
+
+
+
+Lessons Learned
+
+
+This project taught the group some hard lessons about the software development process. Those lessons are communication must always be strong, early organization choices were very important, indecision leads to inaction and falling behind, and finally the project choice was important but not the primary objective of the project.
+
+
+The first lesson learned was that communication must be strong throughout the project. In the development stage for release 1, the amount of communication among the group was not where it needed to be. It took longer to respond to simple questions than what was realistically acceptable. This was solved to an extent in the development of release 2 by mandating that everyone declared their intentions by a certain time every day of the week. By bolstering our daily communication, the development cycle for release 2 went smoother and caused less stress among the group. Had we had good communication from the start, we think we could have accomplished more.
+
+
+The second lesson learned was that sound organization had to happen from the very beginning. When we developed release 1, we did development based on individual aspects of the application itself such as the model, view, and controller. In retrospect it would have been better to develop the model view and controller together while working on individual functions the game had to fulfill. Our decision to work on aspect of the game as opposed to functionality that had to be fulfilled led us to get bogged down in writing the model. This delay took considerable time and was one of the primary reason we fell behind on release 1. While for release 2 we worked on the controller and view in tandem to mitigate the problems from before, the delay had already happened and done its damage. Had the group organized how the project was worked on differently from the beginning, and coupled it with overall better communication, we think we could have done more for release 2. 
+
+
+The third lesson learned was that indecision leads to inaction which in turn leads to falling behind. When we got close to done writing unit test for the model, there was about a three week period where no code got done because we as a group had gotten hung up on what sort of view we wanted. There was a desire by the group to do an isometric view. This desire flouted in the face of reason since no one in the group had previous experience with 3D or 2D isometric views. There was a week and a half of research on how to achieve the isometric view; none of which yielded a solution. When it came time to recognize that isometric view wasn’t feasible, no one said anything about it. Spring break happened and after that release 1 was due in less than a week and only then did the group decide to scrap the isometric view. By that point we had to scrap a graphical interface and make a text based interface for release 1. The lack of decision making led to unnecessary delay and led to the project being behind. Following that incident, the group became diligent in taking decisive action when it was needed.
+
+
+The final lesson learned relates to the project we decided on. Monopoly as a game on the surface, seems simple. However when one digs into the details of Monopoly, the complexity of the game ramps up substantially. As a group, we underestimated how complex Monopoly as a game really was. This leads to the question of whether Monopoly was the best choice to go with for the project. On one had if the group had decided to go with something slightly simpler, a more polished final product could have been developed and perhaps the group would be happier with that product. On the other hand, the group believes that to some extent, the project choice we made didn’t matter because the primary objective of the project was not the programming but rather the Software Engineering development process. While we didn’t end up with a polished product like we hoped, we did learn a great deal about what it takes to develop a project and not just a program.

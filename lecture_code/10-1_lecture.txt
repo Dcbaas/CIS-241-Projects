@@ -1,0 +1,85 @@
+Storage Classes
+
+
+auto
+    int x,y;
+
+By default storage method for all values is auto. All values are automaticlly assigned
+
+///////////
+register int num stores a value in the register
+
+If stored here it has a lower access time than storing in memory 
+You cannot use address of in this case 
+
+
+void f(){
+    static int Count = 0;
+    printf("%d", ++count);
+}
+
+Static variable
+
+Created when the file is loaded in memory 
+Lifetime is global but the scope is still local 
+
+Minimum privilige 
+Anything should be given what it needs but no more 
+
+
+//////
+// file 1
+long list[MaxSize];
+int size;
+
+//file2
+extern long list[]
+extern int size;
+
+Sometimes a variable will be shared by two files and extern is meant to make seperate compilation possible in that situation 
+File 1 is where they are declared and in file 2 the variables are used 
+
+
+
+////////////////////////
+Structure types
+
+struct Student{
+    long id;
+    char name[36];
+    double gpa;
+};
+
+Structs are all public 
+Think of them as a record type 
+
+struct Student s1, s2;
+s1.id = 123;
+strcpy(s1.name, "Tom");
+s1.gpa = 3.85;
+
+s2 = s1; ?
+You have to be careful 
+Pass by value
+This is a shallow copy! 
+
+comparison is also tricky
+compare member by member not by struct type 
+Do not compare directly 
+
+Dynamic structs
+struct Student *p;
+p = calloc(1, sizeof(struct Student));
+//how to access structs members
+(*p).id;
+or
+p->id;
+
+typedef struct { 
+int month, day, year;
+} Date;
+
+Date birthday;
+
+Date days [] = {{5,19,12}, {12,12,12}};Uniform initialization 
+

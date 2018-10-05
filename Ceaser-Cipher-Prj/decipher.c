@@ -11,6 +11,11 @@
  *********************************************************************/
 
 /**********************************************************************
+ * NOTICE: There is a macro defined in the header called NUM_LETTERS.
+ * it defines 26 as a constant for use in arrays 
+ *********************************************************************/
+
+/**********************************************************************
  * Takes the spcified file and reads out all of the frequency values
  * of the normal alphebet. It then takes those values and copies them
  * into the found array. The file is expected to be the file with 
@@ -20,8 +25,6 @@
  * Param: letFreq The file where the frequency values will be extracted.
  *********************************************************************/
 void readFreq(float found[], FILE* letFreq){
-    char throwaway_buffer[3];
-
     //Throws away the first two chars of the file. They are not used.
     fgetc(letFreq);
     fgetc(letFreq);
