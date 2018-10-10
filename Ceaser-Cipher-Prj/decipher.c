@@ -6,7 +6,7 @@
 /**********************************************************************
  * decipher.c implements the functions defined in decipher.h
  * 
- * Authoer: David Baas
+ * Author: David Baas
  * Version: 1.0 - 9/16/2810
  *********************************************************************/
 
@@ -16,8 +16,8 @@
  *********************************************************************/
 
 /**********************************************************************
- * Takes the spcified file and reads out all of the frequency values
- * of the normal alphebet. It then takes those values and copies them
+ * Takes the specified file and reads out all of the frequency values
+ * of the normal alphabet. It then takes those values and copies them
  * into the found array. The file is expected to be the file with 
  * the name letFreq.txt. Any other file will not produce valid results.
  * 
@@ -108,12 +108,12 @@ int findKey(float given[], float found[]){
 /**********************************************************************
  * Takes the cipher text in the file and converts it to plain text. 
  * It is important that the either the datafile has been closed and 
- * reopened again or is starting from the beginning of the origianl
+ * reopened again or is starting from the beginning of the original
  * file used in calcFrequency otherwise the decryption won't happen.
  * All non letter characters are preserved. this means any spaces or
  * numbers used remain the same. 
  * 
- * Param: key The offset used to deciper the cipher text
+ * Param: key The offset used to decipher the cipher text
  * Param: datafile The text file containing the cipher text.
  * Param: outfile The text file that will have the plain text written
  * to it.
@@ -155,4 +155,3 @@ char rotate(char ch, int num){
 
     return final;
 }
-

@@ -3,32 +3,32 @@
 #include "decipher.h"
 
 /**********************************************************************
- * The main method tracks all of the files being used and calls all
- * of the functions to deycrpt the cipher text. After decryption, 
+ * The main function tracks all of the files being used and calls all
+ * of the functions to decrypt the cipher text. After decryption, 
  * The plain text is saved in the output file. For all data structures
- * used in this assignment I used static arrays. This decsion was 
+ * used in this assignment I used static arrays. This decision was 
  * taken because All the arrays used all needed only 26 elements 
  * and in every use case the entire array was filled. With that in 
- * mind, it was more pruident to use the safer static array rather
+ * mind, it was more prudent to use the safer static array rather
  * than deal with possible memory problems of dynamic arrays.
  * 
  * Author: David Baas
  * Version: 1.0 - 9/16/2018
  * 
  * COMMAND LINE ARGUMENTS:
- * Param: {arg[1]} input_file The file contining the cipher text.
+ * Param: {arg[1]} input_file The file containing the cipher text.
  * Param: {arg[2]} output_file The file where the plain text is going 
  * to be written to.
  * 
  * Returns: 0 on successful run, EIO on issues with either reading
  * the input file or writing the output file, EPERM if the number of 
- * arguments is not exactly 3
+ * arguments are not exactly 3
  *********************************************************************/
 int main(int argc, char** argv){
     //Validate the number of arguments.
     if(argc != 3){
         fprintf(stderr, "INVALID NUMBER OF PARAMETERS\n");
-        fprintf(stderr, "USAGE: ./a.out input_file output_file\n");
+        fprintf(stderr, "USAGE: ./decipher input_file output_file\n");
         return EPERM;
     }
 
@@ -61,9 +61,9 @@ int main(int argc, char** argv){
     int best_key = findKey(default_freq, observed_freq);
 
     //Open the output file now and validate it was opened correctly.
-    //I do this later from the others because my perceiption is that
+    //I do this later from the others because my perception is that
     //the less time I have a file open the better. File I/O is 
-    //very tempermental I think.
+    //very temperamental I think.
     output_file = fopen(argv[2], "w");
     if(!output_file){
         fprintf(stderr, "ERROR CREATING OUTPUT FILE");
