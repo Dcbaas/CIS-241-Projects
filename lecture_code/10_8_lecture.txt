@@ -1,0 +1,42 @@
+How to create a data structure in C
+
+#define TRUE 1 
+#define FALSE 0
+#define MAX 25
+typedef int EType;
+typedef int BOOLEAN; 
+typedef struct{
+  EType data[MAX];
+  int top; 
+} Stack; 
+
+
+//main 
+
+stack s; 
+
+isEmpty(&s);
+
+
+definintion of empty
+
+BOOLEAN isEmpty(STACK* ps){
+  if(ps->top < 0)
+    return TRUE;
+
+  return FALSE;
+}
+
+void init(Stack &ps){
+  ps->top =  -1;
+}
+
+bool push(EType x, Stack* ps) {
+  if(size(ps) > 25)A
+
+  else ps->data[++(ps->top)] = x;
+}
+
+You know how a stack works so you didn't continue
+
+Talk about Headers WOO:
