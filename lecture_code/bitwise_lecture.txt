@@ -1,0 +1,74 @@
+Bitwise Operators
+
+'~' complement
+flips bits
+
+a 00000111  = 7
+~a 11111000 = -7
+
+
+Logical Operators
+      and   exclusive or    or
+a b   a&b   a^b             a|b
+0 0    0      0              0 
+
+
+Shift Operator
+a    01011010
+a<<2 01101000  left shift
+a>>3 11101011 right shift with singed int
+a>>3 00001011 right shift with unsigned int
+
+mask
+a        01011001
+mask     00001111
+a & mask 00001001
+
+Examples for using bitwise operator
+
+Printing an int bitwise
+
+a    1001010
+mask 1000000
+
+a&mask
+
+mask = 1 << (n-1)
+print a&mask == 0? "0":"1"
+a <<=1
+in loop
+
+Shift to every bit to read in compared to the one and the bits will be printed out
+
+Packing 
+Possible to pack characters into an int
+
+int a, b, c, d;
+...
+intitalized 
+int p = a
+
+p = p <<CHAR_BIT | b;
+
+p = p << CHAR_BIT |c;
+p = p << CHAR_BIT |d;
+
+
+
+encrypt/decrypt character input
+
+ch     01100001   'a'
+key    00010000
+ch^key 01110001   'q'
+
+
+do decrypt do excluive or on the cipher char and you reclaim again
+
+key is generated as such
+key = 1<<4
+
+
+encrypt integer
+010 10110 1100 1110
+
+
