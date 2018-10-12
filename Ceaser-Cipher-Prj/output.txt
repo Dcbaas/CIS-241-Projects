@@ -1,0 +1,8 @@
+./cipher 1 20 single_paragraph.txt single_paragraph.out 
+./decipher single_paragraph.out single_paragraph.bak
+diff -s single_paragraph.txt single_paragraph.bak
+Files single_paragraph.txt and single_paragraph.bak are identical
+./cipher 1 13 multi_page.txt multi_page.out
+./decipher multi_page.out multi_page.bak
+diff -s multi_page.txt multi_page.bak
+Files multi_page.txt and multi_page.bak are identical
