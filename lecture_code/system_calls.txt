@@ -1,0 +1,24 @@
+System calls 
+
+Allows you to call functions that the system has
+These technques will differ depending on what os one is using.
+
+Fork
+
+When you load a program into memory you have a process
+you can have multiple process for one program
+Fork creates another process using the same executable. 
+parent process and child process.
+Identical copy of the parent process 
+In the child processs the value of fork is 0.
+In the parent processs the value of fork is the Process ID (pid) of the new process
+
+In the second example the child process will do its stuff and the stuff of the parent which might be more problamatic. 
+
+System calls can fail. If fork fails it returns -1 as an error code. 
+
+Linux has something called errorno which keeps the last error from the last system call. 
+
+In example 3 there is a wait call that waits for the child process to die.
+
+

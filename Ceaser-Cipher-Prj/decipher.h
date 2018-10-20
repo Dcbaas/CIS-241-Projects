@@ -1,5 +1,6 @@
 #ifndef DECIPHER_H
 #define DECIPHER_H 
+
 #include <stdio.h>
 
 #define NUM_LETTERS 26
