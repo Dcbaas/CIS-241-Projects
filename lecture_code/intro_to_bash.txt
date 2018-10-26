@@ -1,0 +1,57 @@
+Next topic is Bash
+The final exam is on bash only.
+
+Linux is used often as server platform. 
+
+Refer to it to GNU linux 
+
+Lots of versions available
+
+Redhat: Businesses paid version
+
+Android: Version of embedded linux 
+
+Philosipy was to keep program small. 
+Only do one task and do it well and efficently 
+Program name should be short. 
+
+Linux has 2 concepts
+File and Processes 
+
+Files are units of data that can be stored 
+
+Anything you can send data to or recive from is a file
+
+Type: 
+ordinary files: The ones you know and love in all opeating systems src files txt files etc
+
+directory: A file that contians information about other files. (a folder)
+
+Slash represents the root directory "/" 
+
+~ represents the home directory. Its your user directory. Not the same as the root directory. 
+
+. means current directory and the .. is used for previous directory. (Think reletive path.) 
+i
+
+-Special files
+Symbolic link a name in a pipe web sockets and so on. 
+
+File system is organized like a tree. i
+
+
+User
+Owner
+Group 
+Other
+
+Acesss Righrs
+
+r read
+w writhe
+x execute.
+
+
+
+
+

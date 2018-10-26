@@ -35,12 +35,18 @@ typedef struct Queue{
 } Queue;
 
 /***********************************************************************
- *
+ * Takes a queue and initializes its values to an empty list. 
+ * 
+ * Param: queue. The Queue being initalized. 
  **********************************************************************/
 void initQueue(Queue* queue);
 
 /***********************************************************************
+ * Checks to see if the queue is empty it does this by checking the size
+ * value of the queue passed in.
  *
+ * Param: queue The Queue being initialized. 
+ * Return: 1 if the queue is empty and 0 otherwise. 
  **********************************************************************/
 int isEmpty(Queue* queue);
 
