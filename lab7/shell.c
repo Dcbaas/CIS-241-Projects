@@ -58,7 +58,7 @@ void background(char *cmd)
   //Define the max number of arguments that can be passed.
 	char *argv[MAXARG];
 
-  //Tokenize the entire command string to extract the command from the 
+  //Tokenize the entire cmd string to extract the command from the 
   //cmd string. 
 	argv[i++] = strtok(cmd, "\t \n");
 	while ( i<MAXARG && 
