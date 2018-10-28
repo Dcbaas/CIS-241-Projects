@@ -80,7 +80,5 @@ Time getFront(Queue* queue);
  **********************************************************************/
 void pop(Queue* queue);
 
-void clear(Queue* queue);
-
 #endif
 

@@ -76,11 +76,19 @@ int push(Queue* queue, Time time){
  * action only looks at the first element. It does not take it off.
  *
  * Param: queue The Queue being looked at for this operation.
- * Return The time value of the top element.
- * TODO Add a error check for an empty queue.
+ * Return The time value of the top element. If the list is empty, it 
+ * returns -1.
  **********************************************************************/
 Time getFront(Queue* queue){
-  return queue->front->time;
+  Time value;
+  if(isEmpty(queue)){
+    value = -1;
+  }
+  else{
+    value = queue->front->time;
+  }
+
+  return value;
 }
 
 /***********************************************************************
