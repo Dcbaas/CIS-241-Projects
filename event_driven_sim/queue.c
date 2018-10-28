@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "queue.h"
 
 /***********************************************************************
@@ -41,7 +42,34 @@ int isEmpty(Queue* queue){
  * Return 1 if the push was successful, -1 if there was a failure due
  * to lack of memory.
  *********************************************************************/
-int push(Queue* queue, Time time);
+int push(Queue* queue, Time time){
+  //Create the Node
+  Node* temp = (Node*) malloc(sizeof(Node));
+  if(!temp){
+    fprintf(stderr, "ERROR NOT ENOUGH MEMORY FOR NODE");
+    return -1; //Change to use errno lib.
+  }
+
+  temp->time = time;
+  temp->next = NULL;
+
+  switch(queue->size){
+    case 0:{
+             queue->front = temp;
+             queue->back = temp;
+             ++(queue->size);
+             break;
+           }
+    default:{
+              queue->back->next = temp;
+              queue->back = temp;
+              ++(queue->size);
+              break;
+            }
+  }
+  
+  return 0;
+}
 
 /***********************************************************************
  * Takes a look at the value of the top element on the queue. This
@@ -51,13 +79,41 @@ int push(Queue* queue, Time time);
  * Return The time value of the top element.
  * TODO Add a error check for an empty queue.
  **********************************************************************/
-Time getFront(Queue* queue);
+Time getFront(Queue* queue){
+  return queue->front->time;
+}
 
 /***********************************************************************
  * Removes the element at the front of the Queue. This does not return
  * the value of the element removed from the queue. Use the getFront
  * function to perform that operation.
  *
+ * Cases for the pop operation are:
+ * 1. The list is empty in which case don't do anything. 
+ * 2. The list has one element in it in which case the end pointers
+ * have to be set to NULL
+ * 3. The list has multiple elements in it.
+ *
  * Param: queue The queue being used in this operation
  **********************************************************************/
-void pop(Queue* queue);
+void pop(Queue* queue){
+  Node* temp = queue->front;
+
+  //Don't do anything if the list is empty
+  if(isEmpty(queue)){
+    fprintf(stderr, "List is Empty");
+    return;
+  }
+  else if(queue->size == 1){
+    queue->front = NULL;
+    queue->back = NULL;
+    free(temp);
+    --(queue->size);
+  }
+  else{
+    queue->front = temp->next;
+    free(temp);
+    --(queue->size);
+  }
+}
+
