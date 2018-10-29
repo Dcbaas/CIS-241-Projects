@@ -76,18 +76,14 @@ int push(Queue* queue, Time time){
  * action only looks at the first element. It does not take it off.
  *
  * Param: queue The Queue being looked at for this operation.
- * Return The time value of the top element. If the list is empty, it 
- * returns -1.
+ * Return: A pointer to the first Node in the queue. If the queue is 
+ * empty, NULL is returned. 
  **********************************************************************/
-Time getFront(Queue* queue){
-  Time value;
-  if(isEmpty(queue)){
-    value = -1;
+Node* getFront(Queue* queue){
+  Node* value = NULL;
+  if(!isEmpty(queue)){
+    value  = queue->front;
   }
-  else{
-    value = queue->front->time;
-  }
-
   return value;
 }
 

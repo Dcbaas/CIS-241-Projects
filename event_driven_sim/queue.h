@@ -11,14 +11,17 @@ typedef int Time;
  * for the simulation. It holds a Time value determining when the 
  * node should be removed from the data structure it was put onto.
  *
- * Member: time A time value for when this node is removed from the
- * data structure.
+ * Member: ID: The id of the node in the queue. Will generally in order
+ * it went into line.
+ * Member: time The length of time it took to remove this node from the 
+ * data strucure
  * Member: next The next Node in the Linked List following this 
  * node.
  **********************************************************************/
 typedef struct Node {
- Time time;
- struct Node* next;
+  unsigned short ID;
+  Time time;
+  struct Node* next;
 } Node;
 
 /**********************************************************************
@@ -62,14 +65,12 @@ int isEmpty(Queue* queue);
 int push(Queue* queue, Time time);
 
 /***********************************************************************
- * Takes a look at the value of the top element on the queue. This 
- * action only looks at the first element. It does not take it off.
- * 
+ * Gets the top Node and returns a pointer to the user. From there its 
+ * values can be extracted. 
  * Param: queue The Queue being looked at for this operation.
- * Return The time value of the top element.
- * TODO Add a error check for an empty queue.
+ * Return: A pointer to the Node at the front of the queue. 
  **********************************************************************/
-Time getFront(Queue* queue);
+Node* getFront(Queue* queue);
 
 /***********************************************************************
  * Removes the element at the front of the Queue. This does not return
