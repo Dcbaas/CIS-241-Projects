@@ -17,6 +17,15 @@ int main(int argc, char** argv){
   return 0;
 }
 
+/***********************************************************************
+ * Loads the data for the arrival time of customers. This will be used
+ * in the simulation to simulate customer arrival times. 
+ *
+ * Param: data a pointer to the ArrivalData struct the data will be 
+ * loaded into. 
+ * Return: 0 if all was successful, EIO if there was a problem loading
+ * the file.
+ **********************************************************************/
 int load_data(ArrivalData* data){
   FILE* input_file = fopen("proj2.dat", "r");
 
@@ -37,4 +46,18 @@ int load_data(ArrivalData* data){
   return 0;
 }
 
+
+/**********************************************************************
+ * Simulates the amount of time it takes to serve one customer at the 
+ * counter. The result of this will be stored in a teller array slot 
+ * to signify that the teller is busy.
+ *
+ * Param mean The avg time it takes to serve on customer.
+ * Return a random duration it will take to serve a customer. 
+ **********************************************************************/
+double expdist(double mean){
+  double random_num = rand();
+  random_num /= RAND_MAX;
+  return -mean * log(random_num);
+}
 
