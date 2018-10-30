@@ -1,0 +1,85 @@
+BASH
+
+Previously we had to use shell until a dude replaced it with a better one. 
+
+In every unix system since 1979
+
+Bash is command line and a programming language. 
+You can write scripts inside of it. 
+
+How to find work usage 
+
+
+We can use the tr command which will replace certian cahracters with others
+Ie replace all upper clase with lowercase letters
+
+tr 'A-Z' 'a-z' < file.txt > newFile.txt
+
+We have to put all words on a seperate line
+
+tr 'A-Z' 'a-z' <test.txt | tr -cs 'a-z' '\n' do the lowercase and repalce anything except letters with newlines. 
+We can also add a sort command
+
+tr 'A-Z' 'a-z' <test.txt | tr -cs 'a-z' '\n' | sort| uniq 
+Will show all of the uniique wrod count 
+
+
+Writing a Script in Bash
+
+
+#These are comments
+echo
+date
+echo -n "the number of users is "
+who | wc -1
+echo
+exit 0
+
+
+Running Bash scripts is similar and different to running c exe
+
+You have to change the permissions on the bash file to allow execution
+
+chmod u+x sample
+
+Another way to do this is with the bash command
+bash sample 
+
+
+Variable Expansion
+In bash you don't have to declare a variable as would in other languages
+
+name=tao 
+Spacing Matters for variables in bash
+
+To get the value of a variable you have to type "$<variable name>" 
+
+If you have mulitple words in a value it must be put in quotation marks
+
+Command Expansions aka Command Subitution 
+$( ) ''
+
+To find the command line arguments in a bash program it uses the following
+
+$(<number>) will gives you a specific command line argument
+$# gives you  the number of arguments
+
+$* and $@ gives you a list of all the command line arguments
+
+$* gives one long string
+$@ gives multiple strings 
+
+
+Positional Parameters
+All the pre defined variables that are in a certian position.
+
+The only data type in bash is a string. 
+
+
+Example line="This is a book"
+set $line will make positionaly parameters associated with the current variables individual words
+
+echo $1 will return "This
+
+If you use shift all values will shift one left 
+
