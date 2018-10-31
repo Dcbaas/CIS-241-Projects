@@ -1,8 +1,6 @@
 #ifndef       QUEUE_H
 #define       QUEUE_H
-
-/* I use a typdef to demark a time variable for readability.*/
-typedef int Time;
+#include "data_struct.h"
 
 /***********************************************************************
  * A Linked List is composed of nodes and connections to other nodes.

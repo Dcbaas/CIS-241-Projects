@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "queue.h"
+#include "data_struct.h"
 
 /***********************************************************************
  * Takes a queue and initializes its values to an empty list. I am 
