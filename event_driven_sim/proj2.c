@@ -48,7 +48,12 @@ void simulation(int numTellers){
 
   printf("The final size: %d\n", queue.size);
   clear(&queue);
-  printf("The last size: %d\n", queue.size);
+  
+  printf("LINE RESULTS\n");
+  printf("Avg_line_lengh = %d\n", result.avg_line_length);
+  printf("max_line_lev=ngth = %d\n", result.max_line_length);
+  printf("%d\n", result.line_data_points);
+  printf("%d\n", result.time_data_total);
   
 
   
@@ -85,8 +90,9 @@ ArrivalData* data, Results* stats){
     for(int arrival_index = 0;
     arrival_index < TABLE_SIZE; ++arrival_index){
       if(roll <= data->percent_data[arrival_index]){
-        //Add the prescribed number to the data_points_total
-        stats->line_data_points += data->customers_per_min[arrival_index];
+        //Add the prescribed number to the time_data_total
+        stats->time_data_total += 
+        (queue->size + data->customers_per_min[arrival_index]);
         //Add the perscribed number of customers to the queue
         for(int add = 0; add < data->customers_per_min[arrival_index];
         ++add){
@@ -102,6 +108,10 @@ ArrivalData* data, Results* stats){
   if(stats->max_line_length < queue->size){
     stats->max_line_length = queue->size;
   }
+
+  //Update the average
+  stats->avg_line_length =
+   stats-> time_data_total / stats->line_data_points;
 
 }
 
