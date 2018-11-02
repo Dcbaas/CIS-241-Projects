@@ -71,7 +71,7 @@ $@ gives multiple strings
 
 
 Positional Parameters
-All the pre defined variables that are in a certian position.
+All the pre defined variables that are in a certain position.
 
 The only data type in bash is a string. 
 

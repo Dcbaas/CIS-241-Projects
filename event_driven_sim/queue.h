@@ -1,6 +1,6 @@
 #ifndef       QUEUE_H
 #define       QUEUE_H
-#include "data_struct.h"
+#include "stats_structs.h"
 
 /***********************************************************************
  * A Linked List is composed of nodes and connections to other nodes.
@@ -60,7 +60,7 @@ int isEmpty(Queue* queue);
  * Return 1 if the push was successful, -1 if there was a failure due
  * to lack of memory.
  *********************************************************************/
-int push(Queue* queue, Time time);
+int push(Queue* queue, Time time, unsigned short id);
 
 /***********************************************************************
  * Gets the top Node and returns a pointer to the user. From there its 

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "queue.h"
-#include "data_struct.h"
+#include "stats_structs.h"
 
 /***********************************************************************
  * Takes a queue and initializes its values to an empty list. I am 
@@ -43,7 +43,7 @@ int isEmpty(Queue* queue){
  * Return 1 if the push was successful, -1 if there was a failure due
  * to lack of memory.
  *********************************************************************/
-int push(Queue* queue, Time time){
+int push(Queue* queue, Time time, unsigned short id){
   //Create the Node
   Node* temp = (Node*) malloc(sizeof(Node));
   if(!temp){
@@ -53,6 +53,7 @@ int push(Queue* queue, Time time){
 
   temp->time = time;
   temp->next = NULL;
+  temp->ID = id;
 
   switch(queue->size){
     case 0:{

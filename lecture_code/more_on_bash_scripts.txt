@@ -1,0 +1,4 @@
+There is an exit statemenr
+
+look up if statments in bash
+
