@@ -20,13 +20,15 @@ int numTellers, Results* stats);
 void updateAverages(Results* stats);
 
 int main(int argc, char** argv){
-  ArrivalData data;
-  int result = load_data(&data);
 
-  return result;
+  simulation(4);
+  return 0;
 }
 
 void simulation(int numTellers){
+  ArrivalData data;
+  int load = load_data(&data);
+
   //Allocate the tellers and two structs.
   Time* tellerWait = (Time*) calloc(numTellers, sizeof(Time));
   Results result = {0,0,0,0,0,0,0};
@@ -34,11 +36,19 @@ void simulation(int numTellers){
 
   Time clock = 0;
 
-  while(clock < 480 || queue.size < 0){
-    printf("%d\n", clock);    
+  printf("The init size: %d\n", queue.size);
+
+  while(clock < 480) {
+    // printf("%d\n", clock);  
+
+    add_to_line(&queue, clock, &data, &result);  
 
     ++clock;
   }
+
+  printf("The final size: %d\n", queue.size);
+  clear(&queue);
+  printf("The last size: %d\n", queue.size);
   
 
   
@@ -67,6 +77,8 @@ ArrivalData* data, Results* stats){
     ++(stats->line_data_points);
 
     //Roll to see how many customers get added
+    //TODO refer to book for better rand. This will be the same
+    //every time.
     unsigned char roll = (rand() % 100) + 1;
 
     //Check the result of roll
