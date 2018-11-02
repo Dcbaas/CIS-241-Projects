@@ -17,6 +17,7 @@ void add_to_line(Queue* queue, Time clock,
 ArrivalData* data, Results* stats);
 void fill_tellers(Queue* queue, Time* tellers, 
 int numTellers, Results* stats);
+void updateAverages(Results* stats);
 
 int main(int argc, char** argv){
   ArrivalData data;
@@ -49,8 +50,8 @@ void simulation(int numTellers){
  * given amount of people to the queue line. If the program runs out of
  * memeory to add to the queue, the program will print a failure messeage
  * indicating the simulation failed due to memory. At the end of 
- * adding customers to the line, stats pertaining to the length of the
- * line. will be updated. 
+ * adding customers to the line, The max length will be checked
+ * and updated as needed.
  * 
  * Param: queue The Queue having customers added to it.
  * Param: clock The time value for the customers being added to the line.
@@ -62,7 +63,32 @@ void add_to_line(Queue* queue, Time clock,
 ArrivalData* data, Results* stats){
   //If it is the end of the day, don't add to the line.
   if(clock < 480){
+    //Add one to the total num of data points
+    ++(stats->line_data_points);
 
+    //Roll to see how many customers get added
+    unsigned char roll = (rand() % 100) + 1;
+
+    //Check the result of roll
+    for(int arrival_index = 0;
+    arrival_index < TABLE_SIZE; ++arrival_index){
+      if(roll <= data->percent_data[arrival_index]){
+        //Add the prescribed number to the data_points_total
+        stats->line_data_points += data->customers_per_min[arrival_index];
+        //Add the perscribed number of customers to the queue
+        for(int add = 0; add < data->customers_per_min[arrival_index];
+        ++add){
+          //Add an error stopper
+          push(queue, clock, stats->line_data_points);
+        }
+        break;
+      }
+    }   
+  }
+
+  //Update the max
+  if(stats->max_line_length < queue->size){
+    stats->max_line_length = queue->size;
   }
 
 }

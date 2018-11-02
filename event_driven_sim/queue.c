@@ -123,3 +123,10 @@ void pop(Queue* queue){
   }
 }
 
+
+void clear(Queue* queue){
+  while(!isEmpty(queue)){
+    pop(queue);
+  }
+}
+
