@@ -26,8 +26,6 @@ typedef struct Results{
   Customers customer_data_total;
   Customers avg_line_length;
   Customers max_line_length;
-
-
 } Results;
 
 #endif

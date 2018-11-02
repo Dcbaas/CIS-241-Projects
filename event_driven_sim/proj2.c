@@ -61,36 +61,10 @@ void simulation(int numTellers){
 void add_to_line(Queue* queue, Time clock, 
 ArrivalData* data, Results* stats){
   //If it is the end of the day, don't add to the line.
-  if(clock >= 480)
-    return;
-  static total_added = 0;
-  //Roll a number from 0 - 100 to add people to the line.
-  unsigned int rand_num = (rand() % 100) + 1;
-  
-  //Iterate over the arrival data table to see if the roll matches
-  //Somthing in one of the given ranges.
-  for(int index = 0; index < TABLE_SIZE; ++index){
-    //If it matches the range add the specified amount of people to the 
-    //line. If we fail to add to line indicate the simulation is failing
-    if(rand_num < data->upper_bound[index]){
-      for(Customers added = 0; added < data->customers_per_min; ++added){
-        if(push(queue, clock, ++total_added) == -1){
-          perror("SIMULATION FAILURE: RAN OUT OF MEMEORY");
-          return;
-        }
-      }
-    }
+  if(clock < 480){
+
   }
 
-  //Check the line statistics
-  //Update the avg line length and the number of data points
-  //avg lethgt = total / data point
-  //TODO: Add this functionality to stats struct
-
-  //Update the max length if needed
-  if(stats->max_line_length < queue->size){
-    stats->max_line_length = queue->size;
-  }
 }
 
 /**********************************************************************
@@ -107,19 +81,7 @@ ArrivalData* data, Results* stats){
  **********************************************************************/
 void fill_tellers(Queue* queue, Time* tellers,
  int numTellers, Results* stats){
-  //Iterate through all the tellers to see if check availiblity and
-  //serve customers
-  for(Time* teller = teller < tellers + numTellers; ++ teller){
-    //Check the tellers Availiblity. 
-    //The teller is ready for the next customer
-    if(*teller == 0){
-      //Get the stats from the next person in line.
-      ++(stats->total_served);
-      //update the avg wait time
-      //avg wait = total / data points
 
-    }
-  }
 }
 
 /***********************************************************************
