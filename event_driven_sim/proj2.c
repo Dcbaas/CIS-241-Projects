@@ -19,6 +19,15 @@ void fill_tellers(Queue* queue, Time* tellers,
 int numTellers, Results* stats);
 void updateAverages(Results* stats);
 
+/**********************************************************************
+ * The main function started to program and facilitated running the
+ * other functions. Because of how the project is structured. I am
+ * not able to error check and return an error in this version of the 
+ * program. 
+ * 
+ * NO COMMAND LINE ARGUMENTS. 
+ * RETURNS 0. 
+ *********************************************************************/
 int main(int argc, char** argv){
 
   simulation(4);
@@ -42,6 +51,7 @@ void simulation(int numTellers){
     // printf("%d\n", clock);  
 
     add_to_line(&queue, clock, &data, &result);  
+    fill_tellers(&queue, tellerWait, numTellers, &result);
 
     ++clock;
   }
@@ -56,7 +66,7 @@ void simulation(int numTellers){
  * The add_to_line function facilitates added person to the line at the 
  * bank. It rolls a random number and based on the result of, adds a
  * given amount of people to the queue line. If the program runs out of
- * memeory to add to the queue, the program will print a failure messeage
+ * memory to add to the queue, the program will print a failure message
  * indicating the simulation failed due to memory. At the end of 
  * adding customers to the line, The max length will be checked
  * and updated as needed.
@@ -108,7 +118,7 @@ ArrivalData* data, Results* stats){
  **********************************************************************/
 void fill_tellers(Queue* queue, Time* tellers,
  int numTellers, Results* stats){
-   //Cycle through each teller to see if they are availivble 
+   //Cycle through each teller to see if they are available 
    for(int teller_it = 0; teller_it < numTellers; ++teller_it){
      //The teller is busy. Increment the time down by one
      if(tellers[teller_it] > 0){
@@ -127,48 +137,6 @@ void fill_tellers(Queue* queue, Time* tellers,
      }
    }
 
-}
-
-/***********************************************************************
- * Loads the data for the arrival time of customers. This will be used
- * in the simulation to simulate customer arrival times. While loading 
- * the data, a range table is generated for when a roll is made to see
- * if a customer arrives in line. 
- * 
- * Param: data a pointer to the ArrivalData struct the data will be 
- * loaded into. 
- * Return: 0 if all was successful, EIO if there was a problem loading
- * the file. The referenced ArrivalData is returned as well.
- **********************************************************************/
-int load_data(ArrivalData* data){
-  FILE* input_file = fopen("proj2.dat", "r");
-
-  if(!input_file){
-    fprintf(stderr, "ERROR: FAILURE TO LOAD DAT FILE");
-    fclose(input_file);
-    return EIO;
-  }
-
-  for(int index = 0; index < TABLE_SIZE; ++index){
-    fscanf(input_file, "%i %i", 
-        &(data->customers_per_min[index]), 
-        &(data->percent_data[index]));
-
-    //Generate the range
-    if(index == 0){
-      data->upper_bound[index] = data->percent_data[index];
-    }
-    else{
-      data->upper_bound[index] = 
-        (data->upper_bound[index-1] +  data->percent_data[index]);
-    }
-
-    printf("%d %d %d\n", data->customers_per_min[index], 
-    data->percent_data[index], data->upper_bound[index]);
-  }
-
-  fclose(input_file);
-  return 0;
 }
 
 /**********************************************************************
