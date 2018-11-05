@@ -15,22 +15,12 @@ typedef struct ArrivalData{
 } ArrivalData;
 
 typedef struct Results{
-  //Needed
-  Customers total_served;
+  //Queue size array.
+  Customers* queue_sizes;
 
-  unsigned int time_data_points;
-  Time time_data_total;
-
-  //Needed
-  Time avg_wait;
-  Time max_wait;
-
-  unsigned int line_data_points;
-  Customers customer_data_total;
-
-  //Needed
-  Customers avg_line_length;
-  Customers max_line_length;
+  //Time stats array.
+  Time* time_results;
+  size_t time_list_size;
 } Results;
 
 #endif
