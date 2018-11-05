@@ -34,7 +34,6 @@ typedef struct Results{
 
 int load_data(ArrivalData* data);
 int init_results_struct(Results* results);
-int realloc_time_array(Results* results);
 void generate_stats(Results* data);
 void free_results_struct(Results* results);
 

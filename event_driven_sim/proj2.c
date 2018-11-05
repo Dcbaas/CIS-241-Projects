@@ -16,7 +16,6 @@ void add_to_line(Queue* queue, Time clock,
 ArrivalData* data, Results* stats);
 void fill_tellers(Queue* queue, Time* tellers, 
 int numTellers, Results* stats);
-void updateAverages(Results* stats);
 
 /**********************************************************************
  * The main function started to program and facilitated running the

@@ -99,3 +99,13 @@ void generate_stats(Results* data){
     //Calc avg time in line.
     data->avg_time_in_line /= data->time_list_size;
 }
+
+/**********************************************************************
+ * This function frees the data from the results struct.
+ * 
+ * Param: results The struct having data freed.
+ **********************************************************************/
+void free_results_struct(Results* results){
+    free(results->queue_sizes);
+    free(results->time_results);
+}
