@@ -6,6 +6,7 @@
 #include "stats_structs.h"
 
 #define ONE_DAY 480
+#define AVG_WAIT 2.0
 
 /************************************************************************
  * For all function comments refer to the comments below. 
@@ -15,7 +16,7 @@ double expdist(double mean);
 void add_to_line(Queue* queue, Time clock, 
 ArrivalData* data, Results* stats);
 void fill_tellers(Queue* queue, Time* tellers, 
-int numTellers, Results* stats);
+int numTellers, Results* stats, Time clock);
 
 /**********************************************************************
  * The main function started to program and facilitated running the
@@ -34,28 +35,32 @@ int main(int argc, char** argv){
 
 void simulation(int numTellers){
   ArrivalData data;
-  int load = load_data(&data);
+  int loaded_file = load_data(&data);
 
-  //Allocate the tellers and two structs.
-  Time* tellerWait = (Time*) calloc(numTellers, sizeof(Time));
   Results result;
-  Queue queue = {NULL, NULL, 0};
+  int allocated_stats = init_results_struct(&result);
 
+  if(loaded_file == -1 || allocated_stats == ENOMEM){
+    perror("ERROR RUNNING SIMULATION");
+    free_results_struct(&result);
+    return;
+  }
+
+  Time* tellerWait = (Time*) calloc(numTellers, sizeof(Time));
+
+  Queue queue = {NULL, NULL, 0};
   Time clock = 0;
 
-  printf("The init size: %d\n", queue.size);
-
   while(clock < 480) {
-    // printf("%d\n", clock);  
-
     add_to_line(&queue, clock, &data, &result);  
-    fill_tellers(&queue, tellerWait, numTellers, &result);
+    fill_tellers(&queue, tellerWait, numTellers, &result, clock);
 
     ++clock;
   }
 
-  printf("The final size: %d\n", queue.size);
-  clear(&queue);
+  generate_stats(&result);
+  print_stats(&result);
+  free_results_struct(&result);
 
   
 }
@@ -99,7 +104,9 @@ ArrivalData* data, Results* stats){
       }
     }   
   }
-
+  //TODO add a realloc function for queue stuff
+  //Add current queue size to the table
+  stats->queue_sizes[clock] = queue->size;
 }
 
 /**********************************************************************
@@ -115,7 +122,7 @@ ArrivalData* data, Results* stats){
  * Param: stats The stats struct tracking the results of the simulation. 
  **********************************************************************/
 void fill_tellers(Queue* queue, Time* tellers,
- int numTellers, Results* stats){
+ int numTellers, Results* stats, Time clock){
    //Cycle through each teller to see if they are available 
    for(int teller_it = 0; teller_it < numTellers; ++teller_it){
      //The teller is busy. Increment the time down by one
@@ -128,9 +135,13 @@ void fill_tellers(Queue* queue, Time* tellers,
        if(!isEmpty(queue)){
         //TODO read the time the person in line got in and calculate 
         //their wait time
+        Node* temp = getFront(queue);
+        stats->time_results[(stats->time_list_size)++] = 
+        clock - temp->time;
+
         //Pop them off the stack and reset the timer
         pop(queue);
-        tellers[teller_it] = expdist(2.0);
+        tellers[teller_it] = expdist(AVG_WAIT);
        }
      }
    }

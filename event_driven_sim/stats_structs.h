@@ -35,6 +35,7 @@ typedef struct Results{
 int load_data(ArrivalData* data);
 int init_results_struct(Results* results);
 void generate_stats(Results* data);
+void print_stats(Results* results);
 void free_results_struct(Results* results);
 
 #endif

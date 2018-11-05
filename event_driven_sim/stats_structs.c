@@ -36,9 +36,6 @@ int load_data(ArrivalData* data){
       data->upper_bound[index] = 
         (data->upper_bound[index-1] +  data->percent_data[index]);
     }
-
-    printf("%d %d %d\n", data->customers_per_min[index], 
-    data->percent_data[index], data->upper_bound[index]);
   }
 
   fclose(input_file);
@@ -98,6 +95,19 @@ void generate_stats(Results* data){
     }
     //Calc avg time in line.
     data->avg_time_in_line /= data->time_list_size;
+}
+
+/**********************************************************************
+ * Prints the statistics on the screen
+ * 
+ * Param: results The results being printed on the screen.
+ **********************************************************************/
+void print_stats(Results* results){
+    printf("Total Served: %zu\n\n", results->time_list_size);
+    printf("Average Line Size: %d\n", results->avg_queue_size);
+    printf("Max Line Size: %d\n\n", results->max_queue_size);
+    printf("Average Wait Time: %d\n", results->avg_time_in_line);
+    printf("Max Time in Line: %d\n", results->max_time_in_line);
 }
 
 /**********************************************************************
