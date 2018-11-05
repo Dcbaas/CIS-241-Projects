@@ -36,8 +36,10 @@ int main(int argc, char** argv){
 void simulation(int numTellers){
   ArrivalData data;
   int loaded_file = load_data(&data);
+  // printf("here0");dd
 
   Results result;
+  // printf("here results");
   int allocated_stats = init_results_struct(&result);
 
   if(loaded_file == -1 || allocated_stats == ENOMEM){

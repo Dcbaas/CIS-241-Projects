@@ -19,14 +19,14 @@ typedef struct Results{
   //Queue size array.
   Customers* queue_sizes;
 
-  Customers avg_queue_size;
-  Customers max_queue_size;
+  double avg_queue_size;
+  double max_queue_size;
 
   //Time stats array.
   Time* time_results;
 
-  Time avg_time_in_line;
-  Time max_time_in_line;
+  double avg_time_in_line;
+  double max_time_in_line;
 
   //Also total customers served.
   size_t time_list_size;

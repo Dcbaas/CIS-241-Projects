@@ -51,6 +51,7 @@ int load_data(ArrivalData* data){
  * memory for the struct.
  **********************************************************************/
 int init_results_struct(Results* results){
+    // printf("here1");
     results->queue_sizes = (Customers*) malloc(480 * sizeof(Customers));
     results->time_results = (Time*) malloc(TIME_TABLE_SIZE * sizeof(Time));
 
@@ -61,6 +62,10 @@ int init_results_struct(Results* results){
         free(results->time_results);
         return ENOMEM;
     }
+    results->avg_queue_size = 0.0;
+    results->avg_time_in_line = 0.0;
+    results->max_queue_size = 0.0;
+    results->max_time_in_line = 0.0;
 
     results->time_list_size = 0;
 }
@@ -104,10 +109,10 @@ void generate_stats(Results* data){
  **********************************************************************/
 void print_stats(Results* results){
     printf("Total Served: %zu\n\n", results->time_list_size);
-    printf("Average Line Size: %d\n", results->avg_queue_size);
-    printf("Max Line Size: %d\n\n", results->max_queue_size);
-    printf("Average Wait Time: %d\n", results->avg_time_in_line);
-    printf("Max Time in Line: %d\n", results->max_time_in_line);
+    printf("Average Line Size: %f\n", results->avg_queue_size);
+    printf("Max Line Size: %f\n\n", results->max_queue_size);
+    printf("Average Wait Time: %f\n", results->avg_time_in_line);
+    printf("Max Time in Line: %f\n", results->max_time_in_line);
 }
 
 /**********************************************************************
