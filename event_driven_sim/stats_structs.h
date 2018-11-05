@@ -1,14 +1,13 @@
 #ifndef               DATA_STRUCT_H
 #define               DATA_STRUCT_H
-#include "queue.h"
 
 #define TABLE_SIZE 5
 //The max possible people to come through the line is 1920
 #define TIME_TABLE_SIZE 1920
 
-typedef unsigned int Customers;
+typedef int Customers;
 typedef short Percent;
-typedef unsigned int Time;
+typedef int Time;
 
 typedef struct ArrivalData{
  Percent percent_data[TABLE_SIZE];

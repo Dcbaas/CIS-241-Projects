@@ -10,7 +10,6 @@
 /************************************************************************
  * For all function comments refer to the comments below. 
  *********************************************************************/
-int load_data(ArrivalData* data);
 void simulation(int numTellers);
 double expdist(double mean);
 void add_to_line(Queue* queue, Time clock, 
