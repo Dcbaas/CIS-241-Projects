@@ -18,6 +18,7 @@ typedef struct ArrivalData{
 typedef struct Results{
   //Queue size array.
   Customers* queue_sizes;
+  size_t queue_max_elements;
 
   double avg_queue_size;
   double max_queue_size;
@@ -34,6 +35,7 @@ typedef struct Results{
 
 int load_data(ArrivalData* data);
 int init_results_struct(Results* results);
+int realloc_queue_stats(Results* results);
 void generate_stats(Results* data);
 void print_stats(Results* results);
 void free_results_struct(Results* results);

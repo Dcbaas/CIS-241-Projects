@@ -68,6 +68,35 @@ int init_results_struct(Results* results){
     results->max_time_in_line = 0.0;
 
     results->time_list_size = 0;
+    results->queue_max_elements = 480;
+}
+
+/**********************************************************************
+ * Takes the queue_sizes data and reallocates more space for the array
+ * This will be called if the array of queue sizes outstrips the 
+ * allocated space for it.
+ * 
+ * Param: results The results struct with the queue_sizes array that
+ * will be reallocated.
+ * Return: 0 if all was successful. -1 if the reallocation failed. 
+ *********************************************************************/
+int realloc_queue_stats(Results* results){
+    Customers* temp_sizes = 
+    (Customers*) malloc(results->queue_max_elements*2 * sizeof(Customers));
+    if(!temp_sizes){
+        return -1;
+    }
+
+    for(int index = 0; index < results->queue_max_elements; ++index){
+        temp_sizes[index] = results->queue_sizes[index];
+    }
+
+
+    results->queue_max_elements *= 2;
+    free(results->queue_sizes);
+    results->queue_sizes = temp_sizes;
+    printf("Reallocation called and done.\n");
+    return 0;
 }
 
 /**********************************************************************
