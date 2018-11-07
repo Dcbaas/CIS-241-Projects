@@ -6,7 +6,7 @@
 #define TIME_TABLE_SIZE 1920
 
 typedef int Customers;
-typedef short Percent;
+typedef int Percent;
 typedef int Time;
 
 typedef struct ArrivalData{

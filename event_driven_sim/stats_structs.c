@@ -35,7 +35,7 @@ int load_data(ArrivalData* data){
     else{
       data->upper_bound[index] = 
         (data->upper_bound[index-1] +  data->percent_data[index]);
-    }
+    }     
   }
 
   fclose(input_file);
