@@ -1,9 +1,13 @@
 #ifndef               DATA_STRUCT_H
 #define               DATA_STRUCT_H
 
+//The table size for the arrival data will have 5 elements in it.
 #define TABLE_SIZE 5
+
 //The max possible people to come through the line is 1920
 #define TIME_TABLE_SIZE 1920
+
+#define ONE_DAY 480
 
 typedef int Customers;
 typedef int Percent;

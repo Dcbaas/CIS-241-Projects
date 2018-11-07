@@ -5,7 +5,6 @@
 #include "queue.h"
 #include "stats_structs.h"
 
-#define ONE_DAY 480
 #define AVG_WAIT 2.0
 
 /************************************************************************
@@ -29,7 +28,7 @@ int numTellers, Results* stats, Time clock);
  *********************************************************************/
 int main(int argc, char** argv){
 
-  simulation(4);
+  simulation(3);
   return 0;
 }
 
@@ -64,7 +63,7 @@ void simulation(int numTellers){
   Queue queue = {NULL, NULL, 0};
   Time clock = 0;
 
-  while(clock < 480) {
+  while(clock < 480 || queue.size < 0) {
     add_to_line(&queue, clock, &data, &result);  
     fill_tellers(&queue, tellerWait, numTellers, &result, clock);
 
@@ -101,12 +100,14 @@ ArrivalData* data, Results* stats){
     //Roll to see how many customers get added
     //TODO refer to book for better rand. This will be the same
     //every time.
-    unsigned char roll = (rand() % 100) + 1;
+    // unsigned char roll = (rand() % 100) + 1;
+    int roll = 75;
 
     //Check the result of roll
     for(int arrival_index = 0;
     arrival_index < TABLE_SIZE; ++arrival_index){
-      if(roll <= data->percent_data[arrival_index]){
+      // printf(" %d\n", data->percent_data[arrival_index]);
+      if(roll <= data->upper_bound[arrival_index]){
         //Add the perscribed number of customers to the queue
         for(int add = 0; add < data->customers_per_min[arrival_index];
         ++add){
@@ -117,7 +118,12 @@ ArrivalData* data, Results* stats){
       }
     }   
   }
-  //TODO add a realloc function for queue stuff
+  //Reallocate clock space if needed 
+  if(stats->queue_max_elements < clock){
+    printf("here1");
+    realloc_queue_stats(stats);
+  }
+
   //Add current queue size to the table
   stats->queue_sizes[clock] = queue->size;
 }

@@ -57,7 +57,7 @@ int init_results_struct(Results* results){
 
     //Check if allocation was successful
     if(!results->queue_sizes || !results->time_results){
-        perror("ERROR: NOT ENOUGH FOR RESULTS STRUCT");
+        perror("ERROR: NOT ENOUGH MEMEORY FOR RESULTS STRUCT");
         free(results->queue_sizes);
         free(results->time_results);
         return ENOMEM;
@@ -68,7 +68,8 @@ int init_results_struct(Results* results){
     results->max_time_in_line = 0.0;
 
     results->time_list_size = 0;
-    results->queue_max_elements = 480;
+    results->queue_max_elements = ONE_DAY;
+    return 0;
 }
 
 /**********************************************************************
@@ -82,13 +83,16 @@ int init_results_struct(Results* results){
  *********************************************************************/
 int realloc_queue_stats(Results* results){
     Customers* temp_sizes = 
-    (Customers*) malloc(results->queue_max_elements*2 * sizeof(Customers));
+    (Customers*) 
+    malloc(results->queue_max_elements*2 * sizeof(Customers));
+
     if(!temp_sizes){
         return -1;
     }
 
     for(int index = 0; index < results->queue_max_elements; ++index){
         temp_sizes[index] = results->queue_sizes[index];
+        printf("%d\n", temp_sizes[index]);
     }
 
 
@@ -107,7 +111,7 @@ int realloc_queue_stats(Results* results){
 void generate_stats(Results* data){
     data->max_queue_size = 0;
     //Generate queue stats.
-    for(int index = 0; index < 480; ++index){
+    for(int index = 0; index < data->queue_max_elements; ++index){
         //Check the max.
         if(data->max_queue_size < data->queue_sizes[index]){
             data->max_queue_size = data->queue_sizes[index];
@@ -116,7 +120,7 @@ void generate_stats(Results* data){
         data->avg_queue_size += data->queue_sizes[index];
     }    
     //Calc the avg.
-    data->avg_queue_size /= 480;
+    data->avg_queue_size /= data->queue_max_elements;
 
     //Generate time stats.
     for(int index = 0; index < data->time_list_size; ++index){
