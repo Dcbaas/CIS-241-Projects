@@ -57,7 +57,7 @@ int init_results_struct(Results* results){
 
     //Check if allocation was successful
     if(!results->queue_sizes || !results->time_results){
-        perror("ERROR: NOT ENOUGH MEMEORY FOR RESULTS STRUCT");
+        perror("ERROR: NOT ENOUGH MEMORY FOR RESULTS STRUCT");
         free(results->queue_sizes);
         free(results->time_results);
         return ENOMEM;
