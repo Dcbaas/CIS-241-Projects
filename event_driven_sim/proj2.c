@@ -6,12 +6,19 @@
 #include "stats_structs.h"
 
 #define AVG_WAIT 2.0
+#define INITIAL_SEED 17
+#define MULTIPLIER 25273
+#define INCREMENT 13849
+#define MODULUS 100
+
+static unsigned int seed = INITIAL_SEED;
 
 /************************************************************************
  * For all function comments refer to the comments below. 
  *********************************************************************/
 void simulation(int numTellers);
 double expdist(double mean);
+unsigned int random_num();
 void add_to_line(Queue* queue, Time clock, 
 ArrivalData* data, Results* stats);
 void fill_tellers(Queue* queue, Time* tellers, 
@@ -73,8 +80,6 @@ void simulation(int numTellers){
   generate_stats(&result);
   print_stats(&result);
   free_results_struct(&result);
-
-  
 }
 
 /***********************************************************************
@@ -119,7 +124,6 @@ ArrivalData* data, Results* stats){
   }
   //Reallocate clock space if needed 
   if(stats->queue_max_elements < clock){
-    printf("here1");
     realloc_queue_stats(stats);
   }
 
@@ -180,4 +184,9 @@ double expdist(double mean){
   double random_num = rand();
   random_num /= RAND_MAX;
   return -mean * log(random_num);
+}
+
+unsigned int random_num(){
+  seed = (MULTIPLIER * seed + INCREMENT) % MODULUS;
+  return seed;
 }

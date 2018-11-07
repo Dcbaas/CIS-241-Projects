@@ -87,6 +87,7 @@ int realloc_queue_stats(Results* results){
     malloc(results->queue_max_elements*2 * sizeof(Customers));
 
     if(!temp_sizes){
+        perror("REALLOCATION FAILED");
         return -1;
     }
 
