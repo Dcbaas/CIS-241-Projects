@@ -103,9 +103,7 @@ ArrivalData* data, Results* stats){
   //If it is the end of the day, don't add to the line.
   if(clock < 480){
     //Roll to see how many customers get added
-    //TODO refer to book for better rand. This will be the same
-    //every time.
-    unsigned char roll = (rand() % 100) + 1;
+    unsigned int roll = random_num() + 1;
 
     //Check the result of roll
     for(int arrival_index = 0;
@@ -155,8 +153,6 @@ void fill_tellers(Queue* queue, Time* tellers,
      else{
        //Are there people in line?
        if(!isEmpty(queue)){
-        //TODO read the time the person in line got in and calculate 
-        //their wait time
         Node* temp = getFront(queue);
         stats->time_results[(stats->time_list_size)++] = 
         clock - temp->time;
@@ -186,6 +182,10 @@ double expdist(double mean){
   return -mean * log(random_num);
 }
 
+/**********************************************************************
+ * Creates a seamingly random number better than the random number 
+ * function provided by C. 
+ *********************************************************************/
 unsigned int random_num(){
   seed = (MULTIPLIER * seed + INCREMENT) % MODULUS;
   return seed;
