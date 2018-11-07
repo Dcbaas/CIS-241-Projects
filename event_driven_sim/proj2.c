@@ -100,8 +100,7 @@ ArrivalData* data, Results* stats){
     //Roll to see how many customers get added
     //TODO refer to book for better rand. This will be the same
     //every time.
-    // unsigned char roll = (rand() % 100) + 1;
-    int roll = 75;
+    unsigned char roll = (rand() % 100) + 1;
 
     //Check the result of roll
     for(int arrival_index = 0;
