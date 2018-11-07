@@ -30,7 +30,7 @@ int isEmpty(Queue* queue){
 /***********************************************************************
  * Takes a new element and pushes it onto the back of the queue.
  *
- * There are muliple scnarios of state for pushing to this queue.
+ * There are multiple scenarios of state for pushing to this queue.
  *
  * 1. The queue is empty and needs to be handled differently in
  * the push.

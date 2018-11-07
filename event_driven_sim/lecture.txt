@@ -2,7 +2,7 @@ Aspects to consider
 
 time
 events
-arrivial
+arrival
 available 
 
 
@@ -15,7 +15,7 @@ find the # of customer arrivals
 for each one put into queue int queue with arrival time as value
 
 for each clerk 
-  if one is avalible && the line isnt empty
+  if one is available && the line isn't empty
     remove the first customer from the line 
     update the available time for the clerk
 }

@@ -1,11 +1,16 @@
 #ifndef               DATA_STRUCT_H
 #define               DATA_STRUCT_H
-#include "queue.h"
 
+//The table size for the arrival data will have 5 elements in it.
 #define TABLE_SIZE 5
 
-typedef short Customers;
-typedef short Percent;
+//The max possible people to come through the line is 1920
+#define TIME_TABLE_SIZE 1920
+
+#define ONE_DAY 480
+
+typedef int Customers;
+typedef int Percent;
 typedef int Time;
 
 typedef struct ArrivalData{
@@ -15,23 +20,29 @@ typedef struct ArrivalData{
 } ArrivalData;
 
 typedef struct Results{
-  //Needed
-  Customers total_served;
+  //Queue size array.
+  Customers* queue_sizes;
+  size_t queue_max_elements;
 
-  unsigned int time_data_points;
-  Time time_data_total;
+  double avg_queue_size;
+  double max_queue_size;
 
-  //Needed
-  Time avg_wait;
-  Time max_wait;
+  //Time stats array.
+  Time* time_results;
 
-  unsigned int line_data_points;
-  Customers customer_data_total;
+  double avg_time_in_line;
+  double max_time_in_line;
 
-  //Needed
-  Customers avg_line_length;
-  Customers max_line_length;
+  //Also total customers served.
+  size_t time_list_size;
 } Results;
+
+int load_data(ArrivalData* data);
+int init_results_struct(Results* results);
+int realloc_queue_stats(Results* results);
+void generate_stats(Results* data);
+void print_stats(Results* results);
+void free_results_struct(Results* results);
 
 #endif
 

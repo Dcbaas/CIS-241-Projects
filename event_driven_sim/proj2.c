@@ -5,56 +5,74 @@
 #include "queue.h"
 #include "stats_structs.h"
 
-#define ONE_DAY 480
+#define AVG_WAIT 2.0
 
 /************************************************************************
  * For all function comments refer to the comments below. 
  *********************************************************************/
-int load_data(ArrivalData* data);
 void simulation(int numTellers);
 double expdist(double mean);
 void add_to_line(Queue* queue, Time clock, 
 ArrivalData* data, Results* stats);
 void fill_tellers(Queue* queue, Time* tellers, 
-int numTellers, Results* stats);
-void updateAverages(Results* stats);
+int numTellers, Results* stats, Time clock);
 
+/**********************************************************************
+ * The main function started to program and facilitated running the
+ * other functions. Because of how the project is structured. I am
+ * not able to error check and return an error in this version of the 
+ * program. 
+ * 
+ * NO COMMAND LINE ARGUMENTS. 
+ * RETURNS 0. 
+ *********************************************************************/
 int main(int argc, char** argv){
 
-  simulation(4);
+  simulation(1);
   return 0;
 }
 
+/***********************************************************************
+ * The simulation function runs a simulation of a bank through one whole
+ * day of work. The independant variable is the number of tellers 
+ * on shift for the given day. The simulation is run in part with a 
+ * slew of other functions that faclitate individual steps within the 
+ * process such as adding people to and from line to printing the end
+ * stats on screen.
+ * 
+ * Param: numTellers The number of tellers on shift for the simulated
+ * day at the bank.
+ **********************************************************************/
 void simulation(int numTellers){
   ArrivalData data;
-  int load = load_data(&data);
+  int loaded_file = load_data(&data);
+  // printf("here0");dd
 
-  //Allocate the tellers and two structs.
+  Results result;
+  // printf("here results");
+  int allocated_stats = init_results_struct(&result);
+
+  if(loaded_file == -1 || allocated_stats == ENOMEM){
+    perror("ERROR RUNNING SIMULATION");
+    free_results_struct(&result);
+    return;
+  }
+
   Time* tellerWait = (Time*) calloc(numTellers, sizeof(Time));
-  Results result = {0,0,0,0,0,0,0};
-  Queue queue = {NULL, NULL, 0};
 
+  Queue queue = {NULL, NULL, 0};
   Time clock = 0;
 
-  printf("The init size: %d\n", queue.size);
-
-  while(clock < 480) {
-    // printf("%d\n", clock);  
-
+  while(clock < 480 || queue.size > 0) {
     add_to_line(&queue, clock, &data, &result);  
+    fill_tellers(&queue, tellerWait, numTellers, &result, clock);
 
     ++clock;
   }
 
-  printf("The final size: %d\n", queue.size);
-  clear(&queue);
-  
-  printf("LINE RESULTS\n");
-  printf("Avg_line_lengh = %d\n", result.avg_line_length);
-  printf("max_line_lev=ngth = %d\n", result.max_line_length);
-  printf("%d\n", result.line_data_points);
-  printf("%d\n", result.time_data_total);
-  
+  generate_stats(&result);
+  print_stats(&result);
+  free_results_struct(&result);
 
   
 }
@@ -63,7 +81,7 @@ void simulation(int numTellers){
  * The add_to_line function facilitates added person to the line at the 
  * bank. It rolls a random number and based on the result of, adds a
  * given amount of people to the queue line. If the program runs out of
- * memeory to add to the queue, the program will print a failure messeage
+ * memory to add to the queue, the program will print a failure message
  * indicating the simulation failed due to memory. At the end of 
  * adding customers to the line, The max length will be checked
  * and updated as needed.
@@ -76,43 +94,38 @@ void simulation(int numTellers){
  **********************************************************************/
 void add_to_line(Queue* queue, Time clock, 
 ArrivalData* data, Results* stats){
+  static unsigned int curr_id = 0;
   //If it is the end of the day, don't add to the line.
   if(clock < 480){
-    //Add one to the total num of data points
-    ++(stats->line_data_points);
-
     //Roll to see how many customers get added
     //TODO refer to book for better rand. This will be the same
     //every time.
-    unsigned char roll = (rand() % 100) + 1;
+    // unsigned char roll = (rand() % 100) + 1;
+    int roll = 75;
 
     //Check the result of roll
     for(int arrival_index = 0;
     arrival_index < TABLE_SIZE; ++arrival_index){
-      if(roll <= data->percent_data[arrival_index]){
-        //Add the prescribed number to the time_data_total
-        stats->time_data_total += 
-        (queue->size + data->customers_per_min[arrival_index]);
+      // printf(" %d\n", data->percent_data[arrival_index]);
+      if(roll <= data->upper_bound[arrival_index]){
         //Add the perscribed number of customers to the queue
         for(int add = 0; add < data->customers_per_min[arrival_index];
         ++add){
           //Add an error stopper
-          push(queue, clock, stats->line_data_points);
+          push(queue, clock, ++curr_id);
         }
         break;
       }
     }   
   }
-
-  //Update the max
-  if(stats->max_line_length < queue->size){
-    stats->max_line_length = queue->size;
+  //Reallocate clock space if needed 
+  if(stats->queue_max_elements < clock){
+    printf("here1");
+    realloc_queue_stats(stats);
   }
 
-  //Update the average
-  stats->avg_line_length =
-   stats-> time_data_total / stats->line_data_points;
-
+  //Add current queue size to the table
+  stats->queue_sizes[clock] = queue->size;
 }
 
 /**********************************************************************
@@ -128,56 +141,38 @@ ArrivalData* data, Results* stats){
  * Param: stats The stats struct tracking the results of the simulation. 
  **********************************************************************/
 void fill_tellers(Queue* queue, Time* tellers,
- int numTellers, Results* stats){
+ int numTellers, Results* stats, Time clock){
+   //Cycle through each teller to see if they are available 
+   for(int teller_it = 0; teller_it < numTellers; ++teller_it){
+     //The teller is busy. Increment the time down by one
+     if(tellers[teller_it] > 0){
+       --tellers[teller_it];
+     }
+     //The teller is ready to serve 
+     else{
+       //Are there people in line?
+       if(!isEmpty(queue)){
+        //TODO read the time the person in line got in and calculate 
+        //their wait time
+        Node* temp = getFront(queue);
+        stats->time_results[(stats->time_list_size)++] = 
+        clock - temp->time;
 
-}
+        //Pop them off the stack and reset the timer
+        pop(queue);
+        tellers[teller_it] = expdist(AVG_WAIT);
+       }
+     }
+   }
 
-/***********************************************************************
- * Loads the data for the arrival time of customers. This will be used
- * in the simulation to simulate customer arrival times. While loading 
- * the data, a range table is generated for when a roll is made to see
- * if a customer arrives in line. 
- * 
- * Param: data a pointer to the ArrivalData struct the data will be 
- * loaded into. 
- * Return: 0 if all was successful, EIO if there was a problem loading
- * the file. The referenced ArrivalData is returned as well.
- **********************************************************************/
-int load_data(ArrivalData* data){
-  FILE* input_file = fopen("proj2.dat", "r");
-
-  if(!input_file){
-    fprintf(stderr, "ERROR: FAILURE TO LOAD DAT FILE");
-    fclose(input_file);
-    return EIO;
-  }
-
-  for(int index = 0; index < TABLE_SIZE; ++index){
-    fscanf(input_file, "%i %i", 
-        &(data->customers_per_min[index]), 
-        &(data->percent_data[index]));
-
-    //Generate the range
-    if(index == 0){
-      data->upper_bound[index] = data->percent_data[index];
-    }
-    else{
-      data->upper_bound[index] = 
-        (data->upper_bound[index-1] +  data->percent_data[index]);
-    }
-
-    printf("%d %d %d\n", data->customers_per_min[index], 
-    data->percent_data[index], data->upper_bound[index]);
-  }
-
-  fclose(input_file);
-  return 0;
 }
 
 /**********************************************************************
  * Simulates the amount of time it takes to serve one customer at the 
  * counter. The result of this will be stored in a teller array slot 
- * to signify that the teller is busy.
+ * to signify that the teller is busy. As an observation, the time is 
+ * measured in integers but the prompt for this function is defined as a
+ * double return value. Don't know what to make of that.
  *
  * Param mean The avg time it takes to serve on customer.
  * Return a random duration it will take to serve a customer. 
