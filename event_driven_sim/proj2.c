@@ -28,7 +28,7 @@ int numTellers, Results* stats, Time clock);
  *********************************************************************/
 int main(int argc, char** argv){
 
-  simulation(3);
+  simulation(1);
   return 0;
 }
 
@@ -63,7 +63,7 @@ void simulation(int numTellers){
   Queue queue = {NULL, NULL, 0};
   Time clock = 0;
 
-  while(clock < 480 || queue.size < 0) {
+  while(clock < 480 || queue.size > 0) {
     add_to_line(&queue, clock, &data, &result);  
     fill_tellers(&queue, tellerWait, numTellers, &result, clock);
 

@@ -92,14 +92,12 @@ int realloc_queue_stats(Results* results){
 
     for(int index = 0; index < results->queue_max_elements; ++index){
         temp_sizes[index] = results->queue_sizes[index];
-        printf("%d\n", temp_sizes[index]);
     }
 
 
     results->queue_max_elements *= 2;
     free(results->queue_sizes);
     results->queue_sizes = temp_sizes;
-    printf("Reallocation called and done.\n");
     return 0;
 }
 
