@@ -33,6 +33,17 @@ int main(int argc, char** argv){
   return 0;
 }
 
+/***********************************************************************
+ * The simulation function runs a simulation of a bank through one whole
+ * day of work. The independant variable is the number of tellers 
+ * on shift for the given day. The simulation is run in part with a 
+ * slew of other functions that faclitate individual steps within the 
+ * process such as adding people to and from line to printing the end
+ * stats on screen.
+ * 
+ * Param: numTellers The number of tellers on shift for the simulated
+ * day at the bank.
+ **********************************************************************/
 void simulation(int numTellers){
   ArrivalData data;
   int loaded_file = load_data(&data);
