@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <errno.h>
+#include <unistd.h>
 #include "queue.h"
 #include "stats_structs.h"
 
@@ -35,7 +36,10 @@ int numTellers, Results* stats, Time clock);
  *********************************************************************/
 int main(int argc, char** argv){
 
-  simulation(1);
+  //Run the simulation from 4 to 7 tellers.
+  for(int i = 4; i <= 7; ++ i){
+    simulation(i);
+  }
   return 0;
 }
 
@@ -79,6 +83,7 @@ void simulation(int numTellers){
 
   generate_stats(&result);
   print_stats(&result);
+  sleep(3);
   free_results_struct(&result);
 }
 

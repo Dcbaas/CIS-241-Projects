@@ -145,6 +145,7 @@ void print_stats(Results* results){
     printf("Max Line Size: %f\n\n", results->max_queue_size);
     printf("Average Wait Time: %f\n", results->avg_time_in_line);
     printf("Max Time in Line: %f\n", results->max_time_in_line);
+    printf("////////////\n\n");
 }
 
 /**********************************************************************
