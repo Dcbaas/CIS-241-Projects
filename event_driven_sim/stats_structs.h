@@ -7,12 +7,20 @@
 //The max possible people to come through the line is 1920
 #define TIME_TABLE_SIZE 1920
 
+//One 8 hour day.
 #define ONE_DAY 480
 
+//I used typdefs to make understanding some of the program easier.  
 typedef int Customers;
 typedef int Percent;
 typedef int Time;
 
+/**********************************************************************
+ * The ArrivalData struct is used to store the proj2.dat data from the
+ * file It has fields for all variables specified in the assignment.
+ * The upper_bound data is derived from the percent data in the loading
+ * function. 
+ **********************************************************************/
 typedef struct ArrivalData{
  Percent percent_data[TABLE_SIZE];
  Customers customers_per_min[TABLE_SIZE];
@@ -40,8 +48,8 @@ typedef struct Results{
 int load_data(ArrivalData* data);
 int init_results_struct(Results* results);
 int realloc_queue_stats(Results* results);
-void generate_stats(Results* data);
-void print_stats(Results* results);
+void generate_stats(Results* data, int final_time);
+void print_stats(Results* results, int final_time);
 void free_results_struct(Results* results);
 
 #endif

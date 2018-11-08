@@ -107,10 +107,10 @@ int realloc_queue_stats(Results* results){
  * 
  * Param: data The Results struct holding the data.
  **********************************************************************/
-void generate_stats(Results* data){
+void generate_stats(Results* data, int final_time){
     data->max_queue_size = 0;
     //Generate queue stats.
-    for(int index = 0; index < data->queue_max_elements; ++index){
+    for(int index = 0; index < final_time; ++index){
         //Check the max.
         if(data->max_queue_size < data->queue_sizes[index]){
             data->max_queue_size = data->queue_sizes[index];
@@ -119,7 +119,7 @@ void generate_stats(Results* data){
         data->avg_queue_size += data->queue_sizes[index];
     }    
     //Calc the avg.
-    data->avg_queue_size /= data->queue_max_elements;
+    data->avg_queue_size /= final_time;
 
     //Generate time stats.
     for(int index = 0; index < data->time_list_size; ++index){
@@ -139,12 +139,13 @@ void generate_stats(Results* data){
  * 
  * Param: results The results being printed on the screen.
  **********************************************************************/
-void print_stats(Results* results){
+void print_stats(Results* results, int final_time){
     printf("Total Served: %zu\n\n", results->time_list_size);
     printf("Average Line Size: %f\n", results->avg_queue_size);
     printf("Max Line Size: %f\n\n", results->max_queue_size);
     printf("Average Wait Time: %f\n", results->avg_time_in_line);
     printf("Max Time in Line: %f\n", results->max_time_in_line);
+    printf("Day length: %d\n", final_time);
     printf("////////////\n\n");
 }
 
