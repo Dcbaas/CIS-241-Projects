@@ -79,6 +79,12 @@ Node* getFront(Queue* queue);
  **********************************************************************/
 void pop(Queue* queue);
 
+/**********************************************************************
+ * Clears a queue of all elements. This was used in testing to 
+ * clear data before a flushed out tellers function was made. 
+ * 
+ * Param: queue The Queue having its data cleared.
+ **********************************************************************/
 void clear(Queue* queue);
 
 #endif

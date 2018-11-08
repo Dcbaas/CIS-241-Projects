@@ -81,10 +81,11 @@ void simulation(int numTellers){
     ++clock;
   }
 
-  generate_stats(&result);
-  print_stats(&result);
+  generate_stats(&result, clock);
+  print_stats(&result, clock);
   sleep(3);
   free_results_struct(&result);
+  clear(&queue);
 }
 
 /***********************************************************************
@@ -188,7 +189,7 @@ double expdist(double mean){
 }
 
 /**********************************************************************
- * Creates a seamingly random number better than the random number 
+ * Creates a seemingly random number better than the random number 
  * function provided by C. 
  *********************************************************************/
 unsigned int random_num(){
