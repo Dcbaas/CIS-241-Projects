@@ -4,9 +4,10 @@
 #include "stats_structs.h"
 
 /***********************************************************************
- * Takes a queue and initializes its values to an empty list. I am 
- * unsure of the state of the queue when it is declared without 
- * definition so I set the definition.
+ * Takes a queue and initializes its values to an empty list. 
+ * This function isn't used anymore as I discovered 
+ * uniform initialization works with structs and therefore is faster
+ * to use.
  *
  * Param: queue. The pointer to the Queue being initalized.
  **********************************************************************/

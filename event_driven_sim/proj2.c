@@ -71,6 +71,11 @@ void simulation(int numTellers){
 
   Time* tellerWait = (Time*) calloc(numTellers, sizeof(Time));
 
+  if(!tellerWait){
+    perror("ERROR RUNNING SIMULATION");
+    return;
+  }
+
   Queue queue = {NULL, NULL, 0};
   Time clock = 0;
 

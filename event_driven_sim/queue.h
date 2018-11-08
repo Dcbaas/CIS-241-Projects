@@ -36,7 +36,10 @@ typedef struct Queue{
 } Queue;
 
 /***********************************************************************
- * Takes a queue and initializes its values to an empty list. 
+ * Takes a queue and initializes its values to an empty list and stats
+ * variables. This function isn't used anymore as I discovered 
+ * uniform initialization works with structs and therefore is faster
+ * to use.
  * 
  * Param: queue. The Queue being initalized. 
  **********************************************************************/
