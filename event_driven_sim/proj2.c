@@ -35,11 +35,14 @@ int numTellers, Results* stats, Time clock);
  * RETURNS 0. 
  *********************************************************************/
 int main(int argc, char** argv){
-
-  //Run the simulation from 4 to 7 tellers.
-  for(int i = 4; i <= 7; ++ i){
-    simulation(i);
+  if(argc == 1){
+    printf("./simulation <numtellers>\n");
+    return 1;
   }
+
+
+  simulation(atoi(argv[1]));
+
   return 0;
 }
 

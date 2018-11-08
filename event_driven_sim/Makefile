@@ -4,5 +4,11 @@ queue.o: queue.c
 proj2.o: proj2.c
 stats_structs.o: stats_structs.c
 
+test:
+	./simulation 4
+	./simulation 5
+	./simulation 6
+	./simulation 7
+
 clean:
 	rm -rf *o simulation
