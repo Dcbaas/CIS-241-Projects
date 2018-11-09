@@ -17,7 +17,7 @@ static unsigned int seed = INITIAL_SEED;
 /************************************************************************
  * For all function comments refer to the comments below. 
  *********************************************************************/
-void simulation(int numTellers);
+int simulation(int numTellers);
 double expdist(double mean);
 unsigned int random_num();
 int add_to_line(Queue* queue, Time clock, 
@@ -31,8 +31,10 @@ int numTellers, Results* stats, Time clock);
  * not able to error check and return an error in this version of the 
  * program. 
  * 
- * NO COMMAND LINE ARGUMENTS. 
- * RETURNS 0. 
+ * COMMAND LINE ARGUMENT: <numTeller> The number of tellers to be in 
+ * this given simulation. 
+ *  
+ * Returns nothing of use execpt when the argument list is wrong. 
  *********************************************************************/
 int main(int argc, char** argv){
   if(argc == 1){
@@ -52,12 +54,16 @@ int main(int argc, char** argv){
  * on shift for the given day. The simulation is run in part with a 
  * slew of other functions that faclitate individual steps within the 
  * process such as adding people to and from line to printing the end
- * stats on screen.
+ * stats on screen. The project instruction calls for this function 
+ * to be of type void. I however decided that it would be best for it
+ * to return an integer value to allow for error checking 
  * 
  * Param: numTellers The number of tellers on shift for the simulated
  * day at the bank.
+ * Return: 0 if the simulation was successful, -1 if the simulation 
+ * failed in some way.
  **********************************************************************/
-void simulation(int numTellers){
+int simulation(int numTellers){
   ArrivalData data;
   int loaded_file = load_data(&data);
   // printf("here0");dd
@@ -66,27 +72,35 @@ void simulation(int numTellers){
   // printf("here results");
   int allocated_stats = init_results_struct(&result);
 
-  if(loaded_file == -1 || allocated_stats == ENOMEM){
-    perror("ERROR RUNNING SIMULATION");
+  if(loaded_file == -1){
+    perror("ERROR STARTING SIMULATION: FILE LOAD ERROR");
     free_results_struct(&result);
-    return;
+    return -1;
+  }
+
+  if(allocated_stats == ENOMEM){
+    perror("ERROR STARTING SIMULATION: STATS STRUCT ALLOCATION FAILURE");
+    free_results_struct(&result);
+    return -1;
   }
 
   Time* tellerWait = (Time*) calloc(numTellers, sizeof(Time));
 
   if(!tellerWait){
-    perror("ERROR RUNNING SIMULATION");
-    return;
+    perror("ERROR STARTING SIMULATION: TELLER ALLOCATION FAILURE");
+    return -1;
   }
 
   Queue queue = {NULL, NULL, 0};
   Time clock = 0;
 
   while(clock < 480 || queue.size > 0) {
-    //Check if add line failed.
+    //Check if add line failed. End the simulation if it did.
     if(add_to_line(&queue, clock, &data, &result) == -1){
       perror("SIMULATION FAILED");
-      return;
+      free_results_struct(&result);
+      free(tellerWait);
+      return -1;
     }  
     fill_tellers(&queue, tellerWait, numTellers, &result, clock);
 
@@ -96,7 +110,10 @@ void simulation(int numTellers){
   generate_stats(&result, clock);
   print_stats(&result, clock);
   free_results_struct(&result);
+  free(tellerWait);
   clear(&queue);
+
+  return 0;
 }
 
 /***********************************************************************
