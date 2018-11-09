@@ -6,12 +6,16 @@
 #include "queue.h"
 #include "stats_structs.h"
 
+//This is the avg wait time you gave us
 #define AVG_WAIT 2.0
+
+//Here are the macros for the random function
 #define INITIAL_SEED 17
 #define MULTIPLIER 25273
 #define INCREMENT 13849
 #define MODULUS 100
 
+//The random fuction reqires a global static variable to work. 
 static unsigned int seed = INITIAL_SEED;
 
 /************************************************************************
@@ -72,7 +76,7 @@ int simulation(int numTellers){
   // printf("here results");
   int allocated_stats = init_results_struct(&result);
 
-  if(loaded_file == -1){
+  if(loaded_file == EIO){
     perror("ERROR STARTING SIMULATION: FILE LOAD ERROR");
     free_results_struct(&result);
     return -1;
