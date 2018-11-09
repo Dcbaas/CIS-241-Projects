@@ -135,16 +135,17 @@ void generate_stats(Results* data, int final_time){
 }
 
 /**********************************************************************
- * Prints the statistics on the screen
+ * Prints the statistics on the screen. I round all floating point 
+ * values to only three decimal places for simplicity. 
  * 
  * Param: results The results being printed on the screen.
  **********************************************************************/
 void print_stats(Results* results, int final_time){
     printf("Total Served: %zu\n\n", results->time_list_size);
-    printf("Average Line Size: %f\n", results->avg_queue_size);
-    printf("Max Line Size: %f\n\n", results->max_queue_size);
-    printf("Average Wait Time: %f\n", results->avg_time_in_line);
-    printf("Max Time in Line: %f\n", results->max_time_in_line);
+    printf("Average Line Size: %1.3f\n", results->avg_queue_size);
+    printf("Max Line Size: %1.3f\n\n", results->max_queue_size);
+    printf("Average Wait Time: %1.3f\n", results->avg_time_in_line);
+    printf("Max Time in Line: %1.3f\n", results->max_time_in_line);
     printf("Day length: %d\n", final_time);
     printf("////////////\n\n");
 }

@@ -4,7 +4,7 @@ queue.o: queue.c
 proj2.o: proj2.c
 stats_structs.o: stats_structs.c
 
-simulation:
+test:
 	./simulation 4
 	./simulation 5
 	./simulation 6
