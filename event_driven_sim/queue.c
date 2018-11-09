@@ -49,7 +49,7 @@ int push(Queue* queue, Time time, unsigned short id){
   Node* temp = (Node*) malloc(sizeof(Node));
   if(!temp){
     fprintf(stderr, "ERROR NOT ENOUGH MEMORY FOR NODE");
-    return -1; //Change to use errno lib.
+    return -1; 
   }
 
   temp->time = time;

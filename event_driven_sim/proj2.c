@@ -20,7 +20,7 @@ static unsigned int seed = INITIAL_SEED;
 void simulation(int numTellers);
 double expdist(double mean);
 unsigned int random_num();
-void add_to_line(Queue* queue, Time clock, 
+int add_to_line(Queue* queue, Time clock, 
 ArrivalData* data, Results* stats);
 void fill_tellers(Queue* queue, Time* tellers, 
 int numTellers, Results* stats, Time clock);
@@ -83,7 +83,11 @@ void simulation(int numTellers){
   Time clock = 0;
 
   while(clock < 480 || queue.size > 0) {
-    add_to_line(&queue, clock, &data, &result);  
+    //Check if add line failed.
+    if(add_to_line(&queue, clock, &data, &result) == -1){
+      perror("SIMULATION FAILED");
+      return;
+    }  
     fill_tellers(&queue, tellerWait, numTellers, &result, clock);
 
     ++clock;
@@ -99,20 +103,22 @@ void simulation(int numTellers){
  * The add_to_line function facilitates added person to the line at the 
  * bank. It rolls a random number and based on the result of, adds a
  * given amount of people to the queue line. If the program runs out of
- * memory to add to the queue, the program will print a failure message
- * indicating the simulation failed due to memory. At the end of 
- * adding customers to the line, The max length will be checked
- * and updated as needed.
+ * memory to add to the queue, the function called will print an error
+ *  message and return -1 as an error code. At the end of adding
+ *  customers to the line, The max length will be checked and updated
+ *  as needed. 
  * 
  * Param: queue The Queue having customers added to it.
  * Param: clock The time value for the customers being added to the line.
  * Param: data The Arrival data table used to determine how many 
  * customers arrive in line.
  * Param: stats The stats struct tracking the results of the simulation.
+ * Return: 0 if all was successful -1 if there was a memory issue. 
  **********************************************************************/
-void add_to_line(Queue* queue, Time clock, 
+int add_to_line(Queue* queue, Time clock, 
 ArrivalData* data, Results* stats){
   static unsigned int curr_id = 0;
+  int success = 0;
   //If it is the end of the day, don't add to the line.
   if(clock < 480){
     //Roll to see how many customers get added
@@ -127,7 +133,7 @@ ArrivalData* data, Results* stats){
         for(int add = 0; add < data->customers_per_min[arrival_index];
         ++add){
           //Add an error stopper
-          push(queue, clock, ++curr_id);
+          success = push(queue, clock, ++curr_id);
         }
         break;
       }
@@ -135,11 +141,13 @@ ArrivalData* data, Results* stats){
   }
   //Reallocate clock space if needed 
   if(stats->queue_max_elements < clock){
-    realloc_queue_stats(stats);
+     success = realloc_queue_stats(stats);
   }
 
   //Add current queue size to the table
   stats->queue_sizes[clock] = queue->size;
+
+  return success;
 }
 
 /**********************************************************************
