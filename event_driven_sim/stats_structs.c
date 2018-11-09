@@ -141,12 +141,12 @@ void generate_stats(Results* data, int final_time){
  * Param: results The results being printed on the screen.
  **********************************************************************/
 void print_stats(Results* results, int final_time){
-    printf("Total Served: %zu\n\n", results->time_list_size);
-    printf("Average Line Size: %1.3f\n", results->avg_queue_size);
-    printf("Max Line Size: %1.3f\n\n", results->max_queue_size);
-    printf("Average Wait Time: %1.3f\n", results->avg_time_in_line);
-    printf("Max Time in Line: %1.3f\n", results->max_time_in_line);
-    printf("Day length: %d\n", final_time);
+    printf("Total Served: %zu customers\n\n", results->time_list_size);
+    printf("Average Line Size: %1.3f customers\n", results->avg_queue_size);
+    printf("Max Line Size: %1.3f customers\n\n", results->max_queue_size);
+    printf("Average Wait Time: %1.3f minutes\n", results->avg_time_in_line);
+    printf("Max Time in Line: %1.3f minutes\n", results->max_time_in_line);
+    printf("Day length: %d minutes\n", final_time);
     printf("////////////\n\n");
 }
 

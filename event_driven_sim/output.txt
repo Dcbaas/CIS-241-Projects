@@ -1,0 +1,44 @@
+./simulation 4
+Total Served: 1200
+
+Average Line Size: 203.925
+Max Line Size: 416.000
+
+Average Wait Time: 126.118
+Max Time in Line: 267.000
+Day length: 746
+////////////
+
+./simulation 5
+Total Served: 1200
+
+Average Line Size: 109.097
+Max Line Size: 227.000
+
+Average Wait Time: 53.554
+Max Time in Line: 119.000
+Day length: 598
+////////////
+
+./simulation 6
+Total Served: 1200
+
+Average Line Size: 20.269
+Max Line Size: 56.000
+
+Average Wait Time: 7.503
+Max Time in Line: 23.000
+Day length: 501
+////////////
+
+./simulation 7
+Total Served: 1200
+
+Average Line Size: 4.046
+Max Line Size: 12.000
+
+Average Wait Time: 0.622
+Max Time in Line: 4.000
+Day length: 481
+////////////
+
