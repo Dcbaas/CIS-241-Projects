@@ -91,7 +91,6 @@ void simulation(int numTellers){
 
   generate_stats(&result, clock);
   print_stats(&result, clock);
-  sleep(3);
   free_results_struct(&result);
   clear(&queue);
 }
