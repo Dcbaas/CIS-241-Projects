@@ -197,7 +197,15 @@ double expdist(double mean){
 
 /**********************************************************************
  * Creates a seemingly random number better than the random number 
- * function provided by C. 
+ * function provided by C. In the assignment instruction, it was 
+ * suggested to use a version of this better random number generator 
+ * function. The function itself reqired a global static variable.
+ * Ultimately, it was just as repetitive as the normal rand function.
+ * The source code for the original random number generator can be 
+ * found on pg. 221-222 of the book on c. When called, 1 is added 
+ * to the value of the result to make sure the range is from 1-100.
+ * 
+ * Return: A random number from 0-99
  *********************************************************************/
 unsigned int random_num(){
   seed = (MULTIPLIER * seed + INCREMENT) % MODULUS;
