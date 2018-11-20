@@ -1,9 +1,11 @@
 #/usr/bin/bash
 
 check_backup(){
-  if [ -d ~/backup/]
+  if ! [ -d ~/backup/ ]
   then
-    mkdir 
+    echo "No backup"
+    mkdir ~/backup
+  fi
 }
 display_help(){
   echo "This program backs up files to a backup directory in the home folder"
@@ -51,6 +53,9 @@ viewcp=false
 
 copied=0
 notcp=0
+
+#ensure the backup directory exist. Create it if it doesn't
+check_backup
 
 for var in $@
 do
