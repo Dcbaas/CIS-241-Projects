@@ -1,5 +1,15 @@
 #/usr/bin/bash
 
+#A string to mssage how much was backed up
+numbackup=""
+
+#The message that will say what files were backed up
+backupmssg=""
+
+#Checks to see if the backup folder exist. If it doesn't then 
+#a new one is created in the home directory.
+#No params.
+#No return.
 check_backup(){
   if ! [ -d ~/backup/ ]
   then
@@ -7,6 +17,10 @@ check_backup(){
     mkdir ~/backup
   fi
 }
+
+#Displays a help message to the user and exits the program.
+#No param.
+#No returns.
 display_help(){
   echo "This program backs up files to a backup directory in the home folder"
   echo "Usage: backup [options] sourceDir|sourceFileList"
@@ -15,23 +29,35 @@ display_help(){
   echo "--help prints the help text to the user (Don't know why you need to know this since you seem to have got here fine)"
 }
 
+#Copies a file into the backup folder and echos a message into the backup message.
+#Param Folder path: The folder path to the files.
+#param The file name itself.
+#param The string for the output message.
 copy_file(){
-  cp -v -u $1 ~/backup/.
-  echo "$1 was copied"
+  cp -v -u $1$2 ~/backup/. 
 }
 
+#Takes a directory and extracts the list of files from the folder and calls
+#the copy_files function on them.
+#Param: Directory Name
 handle_dir(){
+  path=$1
   files=$(ls $1)
   set $files
 
   for var in $@
   do
-    copy_file $var
+    copy_file $path $var
   done
 
   exit 0
 }
 
+#Checks the user input list to see if an input is a file or a directory.
+#If its a file, then the file is copied over directly. If its a folder
+#the handle_dir function is called. If its an invalid input then the 
+#program stops.
+#param input param from user
 check_input(){
   if [ -d $1 ]
   then
