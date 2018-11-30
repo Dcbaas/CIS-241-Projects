@@ -11,10 +11,16 @@ target_name=$2
 final_name=$target_name
 target_number=0
 
-while [ -f $final_name ]
-do
-  let target_number++
-  final_name=$target_name.$target_number
-done
+if [ -f $1 ]
+then
+  while [ -f $final_name ]
+  do
+    let target_number++
+    final_name=$target_name.$target_number
+  done
 
-mv $1 $final_name
+  mv $1 $final_name
+else
+  echo "$1 does not exist"
+  exit 1
+fi
