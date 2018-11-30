@@ -1,0 +1,33 @@
+Files 
+
+Has a record
+
+fields 
+
+
+whitespace is an organization because it is a delimiter using whitespace makes parsing data confusing so a special char is used
+
+special character can also be a delimiter
+
+eg 
+
+Baas David,twat
+
+
+look up comm command 
+
+look up paste command
+
+look up cut command
+
+look up sort command
+
+awk 
+
+gawk
+
+used for report generation
+
+NF says how many fields on each line
+
+awk or gawk pattern filename

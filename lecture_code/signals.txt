@@ -1,0 +1,6 @@
+2 = ctrl c - abort
+
+20 = ctrl z - suspned
+
+8 = arithmetic exception
+9 = kill

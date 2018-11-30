@@ -1,0 +1,5 @@
+grep -o '<[^>]*>' myfile
+
+square brackets like in 343 for lexing assignment
+
+
