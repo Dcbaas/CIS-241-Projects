@@ -1,0 +1,17 @@
+When I read the instructions for lab9, I interpreted it as meaning 
+I can't use an actual script to write all the input. With that 
+in mind, I am putting all of the instructions I used to finish 
+the program in this file.
+
+lab9.dat to lab9a.dat:
+sort -t, -k2 lab9.dat >lab9a.dat
+
+lab9a.dat to lab9b.dat
+gawk -F, '{printf "%s\t%s\t%s\n", $3, $2, $1}' lab9a.dat >lab9b.dat
+
+lab9b.dat to lab9c.dat
+sed -n -e 's/Fall /F/p' -e 's/Winter /W/p' lab9b.dat >lab9c.dat
+
+Final part
+
+echo $test_path | gawk -F/ '{print $NF}'

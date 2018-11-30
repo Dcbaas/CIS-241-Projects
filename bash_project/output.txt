@@ -1,0 +1,8 @@
+test/
+test/ was copied
+test/ was copied
+test/ was copied
+test/
+test/ was copied
+test/ was copied
+test/ was copied
