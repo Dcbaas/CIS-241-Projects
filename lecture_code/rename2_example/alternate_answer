@@ -1,0 +1,21 @@
+num=$(ls | grep $target | wc -l this will search for files with the name containing the target name and then count how many there are)
+
+use command expansion 
+
+this doesn't accound for special cases where the original name doesn't exist already
+
+
+________________________________________________________________________________________________________________
+
+ls $target* | tail -1 | cut -d. f3 > temp
+
+read num <temp
+
+let num++
+
+finalname = targetname.$num
+
+
+grep -0 '[^.]*$'
+
+sed 's/.*\.//'
