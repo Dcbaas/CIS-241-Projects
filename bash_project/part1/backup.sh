@@ -1,10 +1,7 @@
 #/usr/bin/bash
 
 #A string to mssage how much was backed up
-numbackup=""
-
-#The message that will say what files were backed up
-backupmssg=""
+numbackup=0
 
 #Checks to see if the backup folder exist. If it doesn't then 
 #a new one is created in the home directory.
@@ -13,7 +10,6 @@ backupmssg=""
 check_backup(){
   if ! [ -d ~/backup/ ]
   then
-    echo "No backup"
     mkdir ~/backup
   fi
 }
@@ -34,7 +30,8 @@ display_help(){
 #param The file name itself.
 #param The string for the output message.
 copy_file(){
-  cp -v -u $1$2 ~/backup/. 
+  let numbackup++
+  cp -v -u $1$2 ~/backup/. >>out_mssg.txt
 }
 
 #Takes a directory and extracts the list of files from the folder and calls
@@ -71,9 +68,11 @@ check_input(){
   fi
 }
 
-
+# I define two sort of constants that represent true and false.
 True=true
 False=false
+
+# Vaariables to enable and disable message output.
 silenced=false
 viewcp=false
 
@@ -90,7 +89,11 @@ do
     "-s")
       silenced=true
     ;;
-    -c)
+    "-c")
+      viewcp=true
+    ;;
+    "-sc")
+      silenced=true
       viewcp=true
     ;;
   --help)
@@ -103,4 +106,20 @@ do
   esac
 
 done
+
+#Print the copy outputs if the user didn't scilence the output.
+if [ $silenced -eq $FALSE ] 
+then
+  cat out_mssg.txt
+fi
+
+#Display the number of files copied
+if [ $viewcp -eq $TRUE ]
+then
+  echo "$numbackup file(s) were backed up"
+fi
+
+rm out_mssg.txt
+
+exit 0
 
