@@ -3,6 +3,8 @@
 #A string to mssage how much was backed up
 numbackup=0
 
+touch out_mssg.txt
+
 #Checks to see if the backup folder exist. If it doesn't then 
 #a new one is created in the home directory.
 #No params.
@@ -25,12 +27,20 @@ display_help(){
   echo "--help prints the help text to the user (Don't know why you need to know this since you seem to have got here fine)"
 }
 
+inc_count(){
+  if [ -d ~/backup/$1 ]
+  then
+    echo "$1 already exist" >>out_mssg.txt
+  else
+    let numbackup++
+  fi
+}
+
 #Copies a file into the backup folder and echos a message into the backup message.
 #Param Folder path: The folder path to the files.
 #param The file name itself.
 #param The string for the output message.
 copy_file(){
-  let numbackup++
   cp -v -u $1$2 ~/backup/. >>out_mssg.txt
 }
 
