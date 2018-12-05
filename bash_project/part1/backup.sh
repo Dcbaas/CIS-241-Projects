@@ -87,7 +87,6 @@ check_backup
 
 for var in $@
 do
-  echo $var
   case $var in 
     "-s")
       silenced=1
