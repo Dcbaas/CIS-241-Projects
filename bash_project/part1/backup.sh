@@ -3,6 +3,8 @@
 #A string to mssage how much was backed up
 numbackup=0
 
+touch out_mssg.txt
+
 #Checks to see if the backup folder exist. If it doesn't then 
 #a new one is created in the home directory.
 #No params.
@@ -25,12 +27,20 @@ display_help(){
   echo "--help prints the help text to the user (Don't know why you need to know this since you seem to have got here fine)"
 }
 
+inc_count(){
+  if [ -d ~/backup/$1 ]
+  then
+    echo "$1 already exist" >>out_mssg.txt
+  else
+    let numbackup++
+  fi
+}
+
 #Copies a file into the backup folder and echos a message into the backup message.
 #Param Folder path: The folder path to the files.
 #param The file name itself.
 #param The string for the output message.
 copy_file(){
-  let numbackup++
   cp -v -u $1$2 ~/backup/. >>out_mssg.txt
 }
 
@@ -44,16 +54,15 @@ handle_dir(){
 
   for var in $@
   do
+    inc_count $var
     copy_file $path $var
   done
-
-  exit 0
 }
 
 #Checks the user input list to see if an input is a file or a directory.
 #If its a file, then the file is copied over directly. If its a folder
 #the handle_dir function is called. If its an invalid input then the 
-#program stops.
+#program shows an error. 
 #param input param from user
 check_input(){
   if [ -d $1 ]
@@ -61,10 +70,10 @@ check_input(){
     handle_dir $1
   elif [ -f $1 ]
   then
+    inc_count $1
     copy_file $1
   else
     echo "Error: $1 is not a valid file or directory"
-    exit 1
   fi
 }
 
@@ -77,7 +86,6 @@ check_backup
 
 for var in $@
 do
-  echo $var
   case $var in 
     "-s")
       silenced=1
@@ -91,7 +99,6 @@ do
     ;;
   --help)
     display_help
-    exit 0
     ;;
   *)
     check_input $var 

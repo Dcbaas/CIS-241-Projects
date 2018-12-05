@@ -1,0 +1,70 @@
+Adding individual file
+'file1' -> '/home/baasdav/backup/./file1'
+
+Adding a list of files
+'file2' -> '/home/baasdav/backup/./file2'
+'file3' -> '/home/baasdav/backup/./file3'
+
+Adding duplicate file
+
+Adding a directory
+'test_dir/file' -> '/home/baasdav/backup/./file'
+'test_dir/file5' -> '/home/baasdav/backup/./file5'
+'test_dir/file6' -> '/home/baasdav/backup/./file6'
+'test_dir/file7' -> '/home/baasdav/backup/./file7'
+'test_dir/file8' -> '/home/baasdav/backup/./file8'
+'test_dir/file9' -> '/home/baasdav/backup/./file9'
+
+Contents of backup
+file
+file1
+file2
+file3
+file5
+file6
+file7
+file8
+file9
+
+Clear contents for next section
+
+Add files with the -s option enabled
+
+Add the directory with the -c option enabled
+'test_dir/file' -> '/home/baasdav/backup/./file'
+'test_dir/file5' -> '/home/baasdav/backup/./file5'
+'test_dir/file6' -> '/home/baasdav/backup/./file6'
+'test_dir/file7' -> '/home/baasdav/backup/./file7'
+'test_dir/file8' -> '/home/baasdav/backup/./file8'
+'test_dir/file9' -> '/home/baasdav/backup/./file9'
+6 file(s) were backed up
+
+Test the help option
+This program backs up files to a backup directory in the home folder
+Usage: backup [options] sourceDir|sourceFileList
+-s: silences all outputs indicating which files have been copied over to backup
+-c: prints numbers on how many files were and were not copied over
+--help prints the help text to the user (Don't know why you need to know this since you seem to have got here fine)
+
+Clear contents again
+
+Test cmd with all three args
+This program backs up files to a backup directory in the home folder
+Usage: backup [options] sourceDir|sourceFileList
+-s: silences all outputs indicating which files have been copied over to backup
+-c: prints numbers on how many files were and were not copied over
+--help prints the help text to the user (Don't know why you need to know this since you seem to have got here fine)
+6 file(s) were backed up
+
+Clear contents again
+
+Attempt to add an invalid file
+Error: disco_file.txt is not a valid file or directory
+
+Attempt to add an invalid file within a set of valid files
+Expected to copy all of the other files while showing an error message for the garbage file
+Error: disco_file is not a valid file or directory
+'file1' -> '/home/baasdav/backup/./file1'
+'file2' -> '/home/baasdav/backup/./file2'
+
+done
