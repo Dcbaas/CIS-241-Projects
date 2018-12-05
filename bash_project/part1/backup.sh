@@ -54,16 +54,15 @@ handle_dir(){
 
   for var in $@
   do
+    inc_count $var
     copy_file $path $var
   done
-
-  exit 0
 }
 
 #Checks the user input list to see if an input is a file or a directory.
 #If its a file, then the file is copied over directly. If its a folder
 #the handle_dir function is called. If its an invalid input then the 
-#program stops.
+#program shows an error. 
 #param input param from user
 check_input(){
   if [ -d $1 ]
@@ -71,10 +70,10 @@ check_input(){
     handle_dir $1
   elif [ -f $1 ]
   then
+    inc_count $1
     copy_file $1
   else
     echo "Error: $1 is not a valid file or directory"
-    exit 1
   fi
 }
 
@@ -100,7 +99,6 @@ do
     ;;
   --help)
     display_help
-    exit 0
     ;;
   *)
     check_input $var 
