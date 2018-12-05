@@ -68,16 +68,9 @@ check_input(){
   fi
 }
 
-# I define two sort of constants that represent true and false.
-True=true
-False=false
-
 # Vaariables to enable and disable message output.
-silenced=false
-viewcp=false
-
-copied=0
-notcp=0
+silenced=0
+viewcp=0
 
 #ensure the backup directory exist. Create it if it doesn't
 check_backup
@@ -87,14 +80,14 @@ do
   echo $var
   case $var in 
     "-s")
-      silenced=true
+      silenced=1
     ;;
     "-c")
-      viewcp=true
+      viewcp=1
     ;;
     "-sc")
-      silenced=true
-      viewcp=true
+      silenced=1
+      viewcp=1
     ;;
   --help)
     display_help
@@ -108,13 +101,13 @@ do
 done
 
 #Print the copy outputs if the user didn't scilence the output.
-if [ $silenced -eq $FALSE ] 
+if [ $silenced -eq 0 ] 
 then
   cat out_mssg.txt
 fi
 
 #Display the number of files copied
-if [ $viewcp -eq $TRUE ]
+if [ $viewcp -eq 1 ]
 then
   echo "$numbackup file(s) were backed up"
 fi
